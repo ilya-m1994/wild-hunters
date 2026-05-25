@@ -74,9 +74,9 @@ import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/navigation'
-import location1 from '~/assets/img/location-1.jpg'
-import location2 from '~/assets/img/location-2.jpg'
-import location3 from '~/assets/img/location-3.jpg'
+import location1 from '~/assets/img/location-1.webp'
+import location2 from '~/assets/img/location-2.webp'
+import location3 from '~/assets/img/location-3.webp'
 
 const modules = [Navigation]
 

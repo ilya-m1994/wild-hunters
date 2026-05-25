@@ -27,7 +27,7 @@ import bg from '~/assets/img/deer.jpg'
   width: 1440px;
   height: 562px;
   margin: 0 auto;
-  background-image: url('~/assets/img/deer.jpg');
+  background-image: url('~/assets/img/deer.webp');
   background-size: cover;
   background-position: center 5%;
   display: flex;

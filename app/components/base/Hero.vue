@@ -17,7 +17,7 @@
 .hero {
   width: 100%;
   margin: 0 auto;
-  background-image: url('~/assets/img/hero.jpg');
+  background-image: url('~/assets/img/hero.webp');
   background-size: cover;
   background-position: center;
   position: relative;
