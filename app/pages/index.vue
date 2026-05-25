@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 1440px; margin: 0 auto;">
+  <div>
     <BaseHero />
     <BaseWhyUs />
     <BestOffers />

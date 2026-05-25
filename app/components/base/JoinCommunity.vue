@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import bg from '~/assets/img/deer.jpg'
+import bg from '~/assets/img/deer.webp'
 </script>
 
 <style scoped>

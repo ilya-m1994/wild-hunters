@@ -8,11 +8,8 @@
         </div>
         <BurgerMenu />
       </div>
-      <NuxtLink
-          to="/"
-          class="header-logo"
-      >
-        Логотип
+      <NuxtLink to="/" class="header-logo">
+        <img src="~/assets/img/logo.svg" alt="logotype">
       </NuxtLink>
       <div class="header-right">
         <UiButton
@@ -31,6 +28,7 @@
 
 <style scoped>
 .header {
+  font-family: 'Inter', sans-serif;
   position: fixed;
   top: 0;
   left: 0;

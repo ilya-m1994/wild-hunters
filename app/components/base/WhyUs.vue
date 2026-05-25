@@ -4,6 +4,7 @@
       <h2 class="why-title">
         ПОЧЕМУ МЫ?
       </h2>
+
       <div class="cards">
         <div class="card">
           <div class="card-number">01.</div>
@@ -11,27 +12,35 @@
             Планируй охоту под себя
           </div>
           <div class="card-text">
-            Индивидуальные и групповые форматы, выбор региона, сезона и вида добычи
+            Индивидуальные и групповые форматы, выбор региона,
+            сезона и вида добычи
           </div>
         </div>
+
         <div class="card">
           <div class="card-number">02.</div>
           <div class="card-title">
             Проверенные организаторы и условия
           </div>
           <div class="card-text">
-            Платформа собирает лучшие варианты и помогает выбрать надежный вариант
+            Платформа собирает лучшие варианты и помогает выбрать
+            надежный вариант
           </div>
         </div>
+
         <div class="card">
           <div class="card-number">03.</div>
           <div class="card-title">
             Прозрачные калькуляции и расходы
           </div>
           <div class="card-text">
-            Все платежи и траты фиксируются в системе, видно распределение средств
+            Все платежи и траты фиксируются в системе,
+            видно распределение средств
           </div>
         </div>
+
+        <!-- видна только на 768 -->
+        <div class="card card-placeholder" />
       </div>
     </div>
   </section>
@@ -39,89 +48,144 @@
 
 <style scoped>
 .why {
-  margin-top: 100px;
-  margin-bottom: 50px;
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+.container-page {
+  padding: 0 15px;
 }
 
 .why-title {
-  text-align: center;
-  text-transform: uppercase;
-  font-weight: 400;
-  font-size: 24px;
-  color: var(--color-dark);
   margin-bottom: 30px;
+
+  color: var(--color-dark);
+  font-size: 24px;
+  font-weight: 400;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .cards {
   display: flex;
-  gap: 8px;
-  overflow-x: auto;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
 }
 
 .card {
-  background: var(--color-primary);
-  width: 360px;
-  height: 230px;
-  padding: 20px;
+  width: 313px;
+  height: 143px;
+  padding: 16px;
+
   border-radius: 12px;
+  background: var(--color-primary);
   color: var(--color-white);
-  flex-shrink: 0;
+}
+
+.card-placeholder {
+  display: none;
 }
 
 .card-number {
-  font-size: 32px;
+  margin-bottom: 12px;
+
+  font-size: 24px;
   font-weight: 400;
-  margin-bottom: 16px;
 }
 
 .card-title {
-  font-size: 18px;
+  margin-bottom: 10px;
+
+  font-family: Inter, sans-serif;
+  font-size: 16px;
   font-weight: 600;
-  margin-bottom: 16px;
-  white-space: pre-line;
 }
 
 .card-text {
-  font-size: 16px;
-  font-weight: 400;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
 }
+
+/* планшет */
 @media (min-width: 768px) {
   .why {
     margin-top: 100px;
-    margin-bottom: 40px;
+    margin-bottom: 100px;
   }
+
+  .container-page {
+    padding: 0 20px;
+  }
+
   .why-title {
+    margin-bottom: 40px;
     font-size: 32px;
   }
+
   .cards {
-    flex-direction: column;
-    gap: 10px;
-    overflow: visible;
+    display: grid;
+    grid-template-columns: repeat(2, 360px);
+    gap: 8px;
+    justify-content: center;
   }
+
   .card {
-    width: 345px;
-    height: auto;
-    padding: 16px;
+    width: 360px;
+    height: 230px;
+    padding: 20px;
+  }
+
+  .card-placeholder {
+    display: block;
+    background: var(--color-background);
+  }
+
+  .card-number {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .card-title {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .card-text {
+    font-size: 16px;
   }
 }
+
+/* десктоп */
 @media (min-width: 1440px) {
   .why {
-    margin-top: 100px;
-    margin-bottom: 50px;
+    margin-bottom: 120px;
   }
+
+  .container-page {
+    padding: 0 120px;
+  }
+
   .why-title {
-    font-size: 44px;
     margin-bottom: 50px;
+    font-size: 44px;
   }
+
   .cards {
+    display: flex;
     flex-direction: row;
-    justify-content: center;
     gap: 16px;
+    justify-content: space-between;
   }
+
   .card {
     width: 389px;
     height: 242px;
-    padding: 20px;
+  }
+
+  .card-placeholder {
+    display: none;
   }
 }
 </style>

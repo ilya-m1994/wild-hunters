@@ -93,7 +93,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
-import baseImage from '~/assets/img/base.png'
+import baseImage from '~/assets/img/base.webp'
 
 const modules = [Navigation]
 

@@ -1,7 +1,9 @@
 <template>
   <button class="dropdown-button">
     {{ title }}
-    <span>▼</span>
+    <span>
+      <img src="~/assets/icons/arrow-down.svg" alt="arrow-down"/>
+    </span>
   </button>
 </template>
 
