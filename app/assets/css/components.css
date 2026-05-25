@@ -1,0 +1,71 @@
+@layer components {
+    /* Containers */
+
+    .container-page {
+        @apply max-w-[1440px] mx-auto;
+    }
+
+    /* Typography */
+
+    .h1 {
+        @apply text-[28px] leading-[120%]
+        md:text-[52px]
+        xl:text-[56px];
+    }
+
+    .h2 {
+        @apply text-[24px] leading-[120%]
+        md:text-[32px]
+        xl:text-[44px];
+    }
+
+    .h3 {
+        @apply text-[22px] leading-[120%]
+        md:text-[24px];
+    }
+
+    .h4 {
+        @apply text-[20px] leading-[120%];
+    }
+
+    .h5 {
+        @apply text-[18px] leading-[120%];
+    }
+
+    .h6 {
+        @apply text-[14px] leading-[120%];
+    }
+
+    .h7 {
+        @apply text-[24px]
+        md:text-[28px]
+        xl:text-[32px];
+    }
+
+    .text-main {
+        @apply text-[16px]
+        xl:text-[18px]
+        leading-[150%];
+    }
+
+    .button-text {
+        @apply text-[16px]
+        xl:text-[18px];
+    }
+
+    .header-link {
+        @apply text-[16px]
+        xl:text-[20px];
+    }
+
+    .footer-link {
+        @apply text-[14px]
+        xl:text-[18px];
+    }
+
+    /* Buttons */
+
+    .button-primary {
+        @apply px-6 py-3 rounded-lg;
+    }
+}

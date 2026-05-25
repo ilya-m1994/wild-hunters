@@ -1,0 +1,247 @@
+<template>
+  <section class="reviews">
+    <div class="container-page">
+      <h2 class="reviews-title">
+        ОТЗЫВЫ
+      </h2>
+
+      <div class="slider-wrapper">
+        <button class="slider-button slider-button-prev">
+          ‹
+        </button>
+
+        <Swiper
+            :modules="modules"
+            :slides-per-view="'auto'"
+            :navigation="{
+            prevEl: '.slider-button-prev',
+            nextEl: '.slider-button-next',
+          }"
+            :breakpoints="{
+            375: {
+              spaceBetween: 10,
+            },
+            768: {
+              spaceBetween: 8,
+            },
+            1440: {
+              spaceBetween: 16,
+            },
+          }"
+            class="slider"
+        >
+          <SwiperSlide
+              v-for="item in reviews"
+              :key="item.id"
+              class="slide"
+          >
+            <div class="card">
+              <div class="header">
+                <div class="avatar" />
+
+                <div class="info">
+                  <div class="name">
+                    {{ item.name }}
+                  </div>
+
+                  <div class="profession">
+                    {{ item.profession }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="text">
+                {{ item.review }}
+              </div>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+
+        <button class="slider-button slider-button-next">
+          ›
+        </button>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script setup>
+import { Navigation } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+
+import 'swiper/css'
+import 'swiper/css/navigation'
+
+const modules = [Navigation]
+
+const reviews = [
+  {
+    id: 1,
+    name: 'Иван Иванов',
+    profession: 'Программист',
+    review: 'Брали путёвки на весенний сезон — утку и вальдшнепа. Очень порадовало соотношение цены и качества, сопоставимо с соседними хозяйствами, но сервис здесь заметно выше.',
+  },
+  {
+    id: 2,
+    name: 'Александр Петров',
+    profession: 'Инженер',
+    review: 'Все организовано удобно. Быстро нашли нужную базу и оформили бронирование.',
+  },
+  {
+    id: 3,
+    name: 'Дмитрий Смирнов',
+    profession: 'Предприниматель',
+    review: 'Понравилась прозрачность расходов и поддержка со стороны организаторов.',
+  },
+  {
+    id: 4,
+    name: 'Сергей Кузнецов',
+    profession: 'Дизайнер',
+    review: 'Сервис удобный, хорошие предложения по регионам и условиям.',
+  },
+]
+</script>
+
+<style scoped>
+.reviews {
+  margin-top: 100px;
+}
+
+.reviews-title {
+  margin-bottom: 30px;
+  color: var(--color-dark);
+  font-size: 24px;
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.slider-wrapper {
+  position: relative;
+}
+
+.slider {
+  padding: 0 15px;
+}
+
+.slide {
+  width: auto;
+}
+
+.card {
+  width: 325px;
+  height: 242px;
+  padding: 20px;
+  border-radius: 12px;
+  background: var(--color-primary);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-grey);
+}
+
+.info {
+  margin-left: 12px;
+}
+
+.name {
+  font-family: 'Inter', sans-serif;
+  color: var(--color-white);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.profession {
+  font-family: 'Inter', sans-serif;
+  color: var(--color-grey);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.text {
+  font-family: 'Inter', sans-serif;
+  margin-top: 20px;
+  color: var(--color-white);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.slider-button {
+  display: none;
+}
+
+@media (min-width:768px) {
+  .reviews-title {
+    margin-bottom: 40px;
+    font-size: 32px;
+  }
+
+  .slider {
+    padding: 0 20px;
+  }
+
+  .card {
+    width: 360px;
+    height: 221px;
+  }
+
+  .text {
+    font-size: 16px;
+  }
+}
+
+@media (min-width:1440px) {
+  .reviews-title {
+    margin-bottom: 50px;
+    font-size: 44px;
+  }
+
+  .slider {
+    padding: 0 50px;
+  }
+
+  .card {
+    width: 388px;
+    height: 277px;
+  }
+
+  .text {
+    font-size: 18px;
+  }
+
+  .slider-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    color: var(--color-dark);
+    font-size: 40px;
+    cursor: pointer;
+    transform: translateY(-50%);
+  }
+
+  .slider-button-prev {
+    left: 0;
+  }
+
+  .slider-button-next {
+    right: 0;
+  }
+}
+</style>
