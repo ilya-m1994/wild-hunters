@@ -1,60 +1,64 @@
+@import './normalize.css';
 @import './variables.css';
-@import './components.css';
+@import './typography.css';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@font-face {
-    font-family: 'Uncage';
-    src: url('../fonts/UNCAGE-Regular.ttf')
-    format('woff2');
-    font-weight: 400;
-    font-style: normal;
+*, *::before, *::after {
+    box-sizing: border-box;
 }
 
-@font-face {
-    font-family: 'Uncage';
-    src: url('../fonts/UNCAGE-Medium.ttf')
-    format('woff2');
-    font-weight: 500;
-    font-style: normal;
+a {
+    text-decoration: none;
 }
 
-@font-face {
-    font-family: 'Uncage';
-    src: url('../fonts/UNCAGE-Bold.ttf')
-    format('woff2');
-    font-weight: 600;
-    font-style: normal;
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 
-@font-face {
-    font-family: 'Inter';
-    src: url('../fonts/Inter-Regular.otf')
-    format('otf');
-    font-weight: 400;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Inter';
-    src: url('../fonts/Inter-Medium.otf')
-    format('otf');
-    font-weight: 600;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Inter';
-    src: url('../fonts/Inter-Bold.otf')
-    format('otf');
-    font-weight: 700;
-    font-style: normal;
+span {
+    display: block;
 }
 
 body {
-    font-family: 'Uncage', sans-serif;
+    font-family: 'Inter', sans-serif;
     color: var(--color-dark);
     background: var(--color-background);
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1170px;
+    padding: 0 15px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: -0.05em;
+    color: var(--color-dark);
+}
+
+@media (min-width: 768px) {
+    .section-title {
+        font-size: 32px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .section-title {
+        font-size: 44px;
+    }
 }

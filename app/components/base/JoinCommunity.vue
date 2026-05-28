@@ -1,25 +1,26 @@
 <template>
-  <section class="join">
-    <div class="content">
+  <div class="container">
+    <section class="">
+      <div class="content">
 
-      <div class="right">
+        <div class="right">
 
-        <h2 class="title">
-          ПРИСОЕДИНЯЙТЕСЬ К НАШЕМУ СООБЩЕСТВУ
-        </h2>
+          <h2 class="title">
+            ПРИСОЕДИНЯЙТЕСЬ К НАШЕМУ СООБЩЕСТВУ
+          </h2>
 
-        <div class="form">
-          Форма обратной связи
+          <div class="form">
+            Форма обратной связи
+          </div>
+
         </div>
 
       </div>
-
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script setup>
-import bg from '~/assets/img/deer.webp'
 </script>
 
 <style scoped>

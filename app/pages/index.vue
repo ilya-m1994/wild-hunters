@@ -4,10 +4,7 @@
     <BaseWhyUs />
     <BestOffers />
     <BestLocations />
-    <HowItWorks />
-    <JoinCommunity />
     <Reviews />
-    <FAQ />
     <Description />
   </div>
 </template>

@@ -1,123 +1,108 @@
 <template>
   <header class="header">
-    <div class="header-container">
-      <div class="header-left">
-        <div class="desktop-menu">
+    <div class="header-wrapper">
+      <div class="header-menu">
+        <div class="header__dropdowns">
           <UiDropdown title="Для охотников" />
           <UiDropdown title="Для охотохозяйств" />
         </div>
         <BurgerMenu />
       </div>
-      <NuxtLink to="/" class="header-logo">
-        <img src="~/assets/img/logo.svg" alt="logotype">
-      </NuxtLink>
-      <div class="header-right">
+
+      <img src="~/assets/img/logo.svg" alt="logotype">
+
+      <div class="header__buttons">
         <UiButton
             variant="text"
-            class="registration-button"
+            class="btn registration-button"
+            @click="$emit('register')"
         >
           Регистрация
         </UiButton>
-        <UiButton class="login-button">
+
+        <UiButton
+            class="btn login-button"
+            @click="$emit('login')"
+        >
           Вход
         </UiButton>
       </div>
     </div>
+
   </header>
 </template>
 
+<script setup>
+import BurgerMenu from '~/components/header/BurgerMenu.vue'
+
+defineEmits([
+  'login',
+  'register'
+])
+</script>
+
 <style scoped>
 .header {
-  font-family: 'Inter', sans-serif;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 100;
-  display: flex;
-  justify-content: center;
 }
-
-.header-container {
-  width: 375px;
-  height: 86px;
-  padding: 0 15px;
+.header-wrapper {
+  margin: 0 auto;
+  max-height: 86px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  position: relative;
+  align-items: center;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
   background: var(--color-white);
-  border-radius: 0 0 12px 12px;
+  padding: 20px 15px;
 }
-
-.header-logo {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-weight: 500;
-}
-
-.desktop-menu {
+.header__dropdowns {
   display: none;
 }
-
-.header-right {
+.header__buttons{
   display: flex;
 }
-
 .registration-button {
   display: none;
+  background: transparent;
+  font-weight: 500;
+  letter-spacing: -5%;
+
 }
 
 .login-button {
-  width: 94px;
-  height: 46px;
+  padding: 15px 28px;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  background: var(--color-accent);
 }
 
-@media (min-width:768px) {
-  .header-container {
-    width: 728px;
-    height: 100px;
-    padding: 0 28px;
+@media (min-width: 768px) {
+  .header-wrapper{
+    max-width: 728px;
+    max-height: 100px;
   }
-
-  .desktop-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
   .registration-button {
     display: block;
     margin-right: 8px;
   }
-
-  .login-button {
-    width: 126px;
-    height: 46px;
+  .header__dropdowns {
+    display: flex;
   }
 }
 
-@media (min-width:1440px) {
-  .header-container {
-    width: 1280px;
-    height: 112px;
-    padding: 0 40px;
-  }
-  .desktop-menu {
-    flex-direction: row;
-
-    gap: 32px;
+@media (min-width: 1440px) {
+  .header-wrapper{
+    max-width: 1280px;
+    max-height: 112px;
   }
   .registration-button {
+    display: block;
     margin-right: 24px;
-  }
-  .login-button {
-    width: 158px;
-    height: 50px;
   }
 }
 </style>
-<script setup lang="ts">
-import BurgerMenu from "~/components/header/BurgerMenu.vue";
-</script>

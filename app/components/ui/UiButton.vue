@@ -1,7 +1,5 @@
 <template>
-  <button
-      :class="buttonClasses"
-  >
+  <button :class="buttonClasses">
     <slot />
   </button>
 </template>
@@ -35,5 +33,8 @@ const buttonClasses = computed(() => ({
   color: var(--color-accent);
 
   font-weight: 500;
+}
+@media (min-width:768px) {
+
 }
 </style>

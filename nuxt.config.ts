@@ -4,9 +4,12 @@ export default defineNuxtConfig({
     },
 
     modules: [
-        '@nuxtjs/tailwindcss',
         '@pinia/nuxt',
     ],
+
+    build: {
+        transpile: ['@vuepic/vue-datepicker']
+    },
 
     css: [
         '~/assets/css/main.css',

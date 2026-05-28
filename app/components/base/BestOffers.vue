@@ -1,15 +1,11 @@
 <template>
   <section class="offers">
-    <div class="container-page">
-      <h2 class="title">
-        ЛУЧШИЕ ПРЕДЛОЖЕНИЯ СЕЙЧАС
-      </h2>
-
+    <div class="container">
+      <h2 class="section-title">Лучшие предложения сейчас</h2>
       <div class="slider-wrapper">
         <button class="slider-button slider-button-prev">
-          ‹
+          <img src="~/assets/icons/arrow-left.svg" alt="arrow-left">
         </button>
-
         <Swiper
             :modules="modules"
             :navigation="{
@@ -19,7 +15,7 @@
             :breakpoints="{
             375: {
               slidesPerView: 'auto',
-              spaceBetween: 10,
+              spaceBetween: 5,
             },
             768: {
               slidesPerView: 'auto',
@@ -27,7 +23,7 @@
             },
             1440: {
               slidesPerView: 4,
-              spaceBetween: 16,
+              spaceBetween: 10,
             },
           }"
             class="slider"
@@ -38,50 +34,32 @@
               class="slide"
           >
             <div class="card">
-              <div class="image">
-                <img
-                    :src="item.image"
-                    :alt="item.name"
-                >
-
-                <button class="fav">
-                  ♥
-                </button>
-
-                <div class="meta">
-                  <div class="reviews">
-                    32 отзыва
-                  </div>
-
-                  <div class="rating">
-                    ★ 4,9
-                  </div>
+              <button class="btn like-btn">
+                <img src="~/assets/icons/heart.svg" alt="like">
+              </button>
+              <div class="meta">
+                <div class="reviews">32 отзыва</div>
+                <div class="rating">
+                  <img class="rating-star" src="~/assets/icons/star.svg" alt="star">
+                  <span>4,9</span>
                 </div>
               </div>
-
-              <div class="content">
-                <div class="name">
-                  {{ item.name }}
-                </div>
-
-                <div class="region">
-                  {{ item.region }}
-                </div>
-              </div>
+            </div>
+            <div>
+              <div> {{ item.name }} </div>
+              <div> {{ item.region }} </div>
             </div>
           </SwiperSlide>
         </Swiper>
 
         <button class="slider-button slider-button-next">
-          ›
+          <img src="~/assets/icons/arrow-right.svg" alt="arrow-right">
         </button>
       </div>
 
-      <div class="button-wrapper">
-        <UiButton class="show-all-button">
-          Смотреть все
-        </UiButton>
-      </div>
+      <UiButton class="btn show-all-button">
+        Смотреть все
+      </UiButton>
     </div>
   </section>
 </template>
@@ -136,131 +114,64 @@ const items = [
   margin-top: 100px;
   margin-bottom: 120px;
 }
-
-.title {
-  margin-bottom: 30px;
-  color: var(--color-dark);
-  font-size: 24px;
-  font-weight: 400;
-  text-align: center;
-  text-transform: uppercase;
-}
-
 .slider-wrapper {
   position: relative;
 }
-
-.slider {
-  padding: 0 15px;
-}
-
 .slide {
   width: auto;
 }
-
 .card {
+  position: relative;
   width: 325px;
+  height: 345px;
   padding: 20px;
+  border-radius: var(--border-radius);
+  background-image: url("~/assets/img/base.webp");
+  background-size: cover;
+  background-position: center;
 }
-
-.button-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
+.like-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
-
 .show-all-button {
   padding: 16px 50px;
+  margin-top: 40px;
 }
-
-.image {
-  position: relative;
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
-  border-radius: 12px;
-}
-
-.image img {
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
-.fav {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--color-white);
-}
-
 .meta {
   position: absolute;
-  right: 10px;
-  bottom: 10px;
-  left: 10px;
+  bottom: 20px;
+  right: 20px;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   color: var(--color-white);
 }
-
 .reviews {
   font-size: 14px;
   font-weight: 400;
+  letter-spacing: -0.05em;
+  margin-right: 12px;
 }
-
 .rating {
-  font-size: 16px;
-  font-weight: 400;
-}
-
-.content {
-  margin-top: 12px;
-}
-
-.name {
-  color: var(--color-dark);
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.region {
-  color: var(--color-dark);
-  font-size: 16px;
-  font-weight: 400;
-}
-
-.button-wrap {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 400;
 }
-
+.rating-star {
+  margin-right: 2px;
+}
 .slider-button {
   display: none;
 }
-
 @media (min-width:768px) {
-  .title {
-    margin-bottom: 40px;
-    font-size: 32px;
-  }
-
   .slider {
     padding: 0 20px;
   }
-
   .card {
     width: 360px;
-    height: 361px;
-  }
-
-  .button-wrap {
-    margin-top: 30px;
+    height: 300px;
   }
 }
 
@@ -268,25 +179,16 @@ const items = [
   .offers {
     margin-top: 80px;
   }
-
-  .title {
-    margin-bottom: 50px;
-    font-size: 44px;
-  }
-
   .slider {
     padding: 0 50px;
   }
-
   .card {
     width: 288px;
     height: 300px;
   }
-
   .show-all-button {
     padding: 16px 20px;
   }
-
   .slider-button {
     position: absolute;
     top: 50%;
@@ -301,11 +203,9 @@ const items = [
     cursor: pointer;
     transform: translateY(-50%);
   }
-
   .slider-button-prev {
     left: 0;
   }
-
   .slider-button-next {
     right: 0;
   }
