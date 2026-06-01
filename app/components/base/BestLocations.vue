@@ -1,15 +1,11 @@
 <template>
   <section class="locations">
-    <div class="container-page">
-      <h2 class="locations-title">
-        ЛУЧШИЕ ЛОКАЦИИ
-      </h2>
-
+    <div class="container">
+      <h2 class="section-title">Лучшие локации</h2>
       <div class="slider-wrapper">
         <button class="slider-button slider-button-prev">
-          ‹
+          <img src="~/assets/icons/arrow-left.svg" alt="arrow-left">
         </button>
-
         <Swiper
             :modules="modules"
             :slides-per-view="'auto'"
@@ -56,15 +52,13 @@
         </Swiper>
 
         <button class="slider-button slider-button-next">
-          ›
+          <img src="~/assets/icons/arrow-right.svg" alt="arrow-right">
         </button>
       </div>
 
-      <div class="button-wrapper">
-        <UiButton class="show-all-button">
-          Смотреть все
-        </UiButton>
-      </div>
+      <UiButton class="btn show-all-button">
+        Смотреть все
+      </UiButton>
     </div>
   </section>
 </template>
@@ -109,14 +103,6 @@ const locations = [
 </script>
 
 <style scoped>
-.locations-title {
-  margin-bottom: 30px;
-  color: var(--color-dark);
-  font-size: 24px;
-  font-weight: 400;
-  text-align: center;
-  text-transform: uppercase;
-}
 
 .slider-wrapper {
   position: relative;
@@ -167,14 +153,10 @@ const locations = [
   font-weight: 600;
 }
 
-.button-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-}
-
 .show-all-button {
   padding: 16px 50px;
+  margin: 0 auto;
+  margin-top: 40px;
 }
 
 .slider-button {
@@ -182,10 +164,6 @@ const locations = [
 }
 
 @media (min-width:768px) {
-  .locations-title {
-    margin-bottom: 40px;
-    font-size: 32px;
-  }
 
   .slider {
     padding: 0 20px;
@@ -198,10 +176,6 @@ const locations = [
 }
 
 @media (min-width:1440px) {
-  .locations-title {
-    margin-bottom: 50px;
-    font-size: 44px;
-  }
 
   .slider {
     padding: 0 50px;

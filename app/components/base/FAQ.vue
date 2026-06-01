@@ -1,59 +1,35 @@
 <template>
-  <section class="faq">
-    <div class="container-page">
-
-      <h2 class="title">
-        Часто задаваемые вопросы
-      </h2>
-
-      <div class="box">
-        <div
-            v-for="(item, index) in items"
-            :key="index"
-            class="item"
-        >
-          <div class="row" @click="toggle(index)">
-            <div class="left">
-              <div class="num">
-                {{ index + 1 }}
+  <section class="faq-section">
+    <div class="container">
+      <h2 class="section-title">Часто задаваемые вопросы</h2>
+      <div class="item-wrapper">
+        <ul v-for="(item, index) in items" :key="index" class="question-list">
+          <li class="list-item" @click="toggle(index)">
+            <div class="question-wrapper">
+              <div class="item-wrap">
+                <div class="item-number">{{ index + 1 }}</div>
+                <div class="item-question">{{ item.question }}</div>
               </div>
-              <div class="question">
-                {{ item.q }}
+              <div class="icon">
+                <img v-if="opened === index" src="~/assets/icons/minus.svg" alt="minus">
+                <img v-else src="~/assets/icons/plus.svg" alt="plus">
               </div>
             </div>
-
-            <!-- Ответ для Desktop и Tablet (появляется в центре строки) -->
-            <div class="answer-desktop">
-              <span v-if="opened === index">{{ item.a }}</span>
+            <div class="answer">
+              <span v-if="opened === index">{{ item.answer }}</span>
             </div>
-
-            <div class="icon">
-              {{ opened === index ? '−' : '+' }}
-            </div>
-          </div>
-
-          <!-- Ответ для Mobile (появляется под вопросом) -->
-          <div class="answer-mobile" v-if="opened === index">
-            {{ item.a }}
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
-
-      <div class="bottom">
-        <div class="bottom-left">
-          ОСТАЛИСЬ ВОПРОСЫ?
-        </div>
-
-        <div class="bottom-right">
-          <div class="bottom-text">
-            Напишите нам и мы проконсультируем вас и ответим на вопросы
-          </div>
-          <UiButton>
+      <div class="support">
+        <div class="support-title">ОСТАЛИСЬ ВОПРОСЫ?</div>
+        <div class="support-wrapper">
+          <div class="support-text">Напишите нам и мы проконсультируем вас и ответим на вопросы</div>
+          <UiButton class="btn support-btn">
             Поддержка
           </UiButton>
         </div>
       </div>
-
     </div>
   </section>
 </template>
@@ -69,198 +45,133 @@ const toggle = (i) => {
 
 const items = [
   {
-    q: 'Нужно ли проходить обучение, чтобы стать охотником?',
-    a: 'Да, обучение является обязательным этапом для законной охоты в России. Чтобы получить охотничий билет, вам необходимо изучить и успешно сдать экзамен по правилам охоты, технике безопасности при обращении с оружием, основам биологии диких животных и правилам оказания первой помощи в полевых условиях.',
+    question: 'Нужно ли проходить обучение, чтобы стать охотником?',
+    answer: 'Да, обучение является обязательным этапом для законной охоты в России. Чтобы получить охотничий билет, вам необходимо изучить и успешно сдать экзамен по правилам охоты, технике безопасности при обращении с оружием, основам биологии диких животных и правилам оказания первой помощи в полевых условиях.',
   },
   {
-    q: 'Как оформить бронирование?',
-    a: 'Вы выбираете базу, дату и отправляете заявку через систему.',
+    question: 'Как оформить бронирование?',
+    answer: 'Вы выбираете базу, дату и отправляете заявку через систему.',
   },
   {
-    q: 'Можно ли отменить бронь?',
-    a: 'Да, согласно правилам конкретной базы.',
+    question: 'Можно ли отменить бронь?',
+    answer: 'Да, согласно правилам конкретной базы.',
   },
   {
-    q: 'Есть ли поддержка?',
-    a: 'Да, поддержка работает ежедневно.',
+    question: 'Есть ли поддержка?',
+    answer: 'Да, поддержка работает ежедневно.',
   },
   {
-    q: 'Как выбрать регион?',
-    a: 'Вы можете использовать фильтр по регионам на сайте.',
+    question: 'Как выбрать регион?',
+    answer: 'Вы можете использовать фильтр по регионам на сайте.',
   },
 ]
 </script>
 
 <style scoped>
-.faq {
-  margin-top: 100px;
+.faq-section {
+  margin-top: 80px;
   margin-bottom: 100px;
 }
-
-/* --- DESKTOP (1440px) --- */
-.title {
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 44px;
-  font-weight: 400;
-  color: var(--color-dark);
-  margin-bottom: 50px;
+.item-wrapper {
 }
-
-.box {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+.question-list {
+  padding: 0;
+  list-style: none;
 }
-
-.item {
-  border-bottom: 1px solid #ddd;
-  padding: 20px 0;
+.list-item {
+  border-top: 1px solid var(--color-grey);
+  border-bottom: 1px solid var(--color-grey);
 }
-
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; /* Центрируем, если текст ответа будет многострочным */
-  cursor: pointer;
-  gap: 32px;
-}
-
-.left {
+.question-wrapper {
   display: flex;
   align-items: center;
-  gap: 32px;
-  flex: 0 0 auto;
-  max-width: 40%; /* Ограничиваем ширину левой части */
+  justify-content: space-between;
+  padding: 16px 0;
 }
-
-.num {
+.item-wrap {
+  display: flex;
+  align-items: center;
+}
+.item-number {
+  background-color: var(--color-primary);
+  color: var(--color-white);
   width: 40px;
   height: 40px;
-  flex-shrink: 0;
-  border-radius: 50%;
   background: var(--color-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
+  text-align: center;
+  border-radius: 100%;
+  padding-top: 10px;
+  margin-right: 10px;
+}
+.item-question {
+  text-align: left;
+  font-weight: 600;
+  font-size: 20px;
+  max-width: 225px;
+}
+.answer {
   font-weight: 400;
-}
-
-.question {
-  font-size: 18px;
-  color: var(--color-dark);
-}
-
-.answer-desktop {
-  flex: 1; /* Занимает всё пустое пространство между вопросом и крестиком */
   font-size: 16px;
-  color: var(--color-dark);
-  padding: 0 20px;
+  padding-left: 50px;
+  padding-bottom: 16px;
 }
-
-.answer-mobile {
-  display: none; /* Скрыто на десктопе */
-}
-
-.icon {
-  width: 23px;
-  height: 23px;
-  flex-shrink: 0;
+.support {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 23px;
-  color: var(--color-dark);
-  user-select: none;
+  flex-direction: column;
+  text-align: left;
 }
-
-.bottom {
-  margin-top: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.bottom-left {
-  font-size: 18px;
+.support-title {
   font-weight: 400;
-  text-transform: uppercase;
-  color: var(--color-dark);
+  font-size: 24px;
+  margin-bottom: 16px;
 }
-
-.bottom-right {
+.support-text {
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.support-btn {
+  width: 100%;
+  padding: 15px 0;
+}
+.support-wrapper {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  flex-direction: column;
 }
-
-.bottom-text {
-  font-size: 16px;
-  color: var(--color-dark);
-}
-
-
-/* --- TABLET (768px) --- */
-@media (max-width: 768px) {
-  .title {
-    font-size: 32px;
-    margin-bottom: 40px;
-  }
-
-  .box {
-    max-width: 728px;
-  }
-
-  .left {
-    max-width: 50%;
-  }
-
-  .bottom-right {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-}
-
-
-/* --- MOBILE (375px) --- */
-@media (max-width: 480px) {
-  .title {
-    font-size: 24px;
-    margin-bottom: 30px;
-  }
-
-  .row {
-    gap: 16px;
-    align-items: flex-start;
-  }
-
-  .left {
+@media (min-width: 480px) {
+  .item-question {
     max-width: 100%;
-    gap: 16px;
   }
-
-  .question {
-    font-size: 16px;
+}
+@media (min-width: 768px) {
+  .support-title {
+    font-size: 28px;
   }
-
-  .answer-desktop {
-    display: none;
+  .support {
+    flex-direction: row;
+    justify-content: space-between;
   }
-
-  .answer-mobile {
-    display: block; /* Включаем отображение снизу */
-    margin-top: 12px;
-    margin-left: 56px; /* Отступ 40px (кружок) + 16px (gap), чтобы текст встал ровно под вопросом */
-    font-size: 14px;
-    color: var(--color-dark);
+  .support-wrapper {
+    width: 50%;
+    align-items: center;
   }
-
-  .bottom {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
+  .support-title {
+    margin-bottom: 0;
+  }
+}
+@media (min-width: 1440px) {
+  .support-title {
+    font-size: 32px;
+  }
+  .support-wrapper {
+    flex-direction: row;
+    align-items: center;
+  }
+  .support-text {
+    margin-bottom: 0;
+  }
+  .support-btn {
+    width: 187px;
   }
 }
 </style>

@@ -1,23 +1,25 @@
 <template>
-  <div class="container">
-    <section class="">
-      <div class="content">
-
-        <div class="right">
-
-          <h2 class="title">
-            ПРИСОЕДИНЯЙТЕСЬ К НАШЕМУ СООБЩЕСТВУ
-          </h2>
-
-          <div class="form">
-            Форма обратной связи
+  <section class="join">
+    <div class="container">
+      <div class="join-form">
+        <h2 class="section-title join-title">Присоединяйтесь к нашему сообществу</h2>
+        <form>
+          <input type="text" placeholder="Ваш email" class="join-input">
+          <label class="join-label">
+            <input class="join-checkbox" type="checkbox" checked />
+            <label>Я согласен с политикой конфиденциальности</label>
+          </label>
+          <div>
+            <UiButton class="btn mail-btn">Подписаться на рассылку</UiButton>
+            <div class="btns-wrapper">
+              <UiButton class="btn social-btn">TELEGRAM</UiButton>
+              <UiButton class="btn social-btn">MAX</UiButton>
+            </div>
           </div>
-
-        </div>
-
+        </form>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </template>
 
 <script setup>
@@ -25,74 +27,81 @@
 
 <style scoped>
 .join {
-  width: 1440px;
-  height: 562px;
   margin: 0 auto;
+  min-height: 437px;
   background-image: url('~/assets/img/deer.webp');
   background-size: cover;
   background-position: center 5%;
   display: flex;
   align-items: center;
-  padding: 125px 158px;
+  padding: 162px 15px 20px 15px;
 }
-
-.content {
+.join-title {
+  color: var(--color-white);
+  text-align: left;
+}
+.join-input {
+  display: block;
   width: 100%;
+  padding: 10px 8px;
+  background: transparent;
+  border: none;
+  color: var(--color-white);
+  border-bottom: 1px solid var(--color-white);
+  caret-color: var(--color-white);
+}
+.join-input:focus {
+  outline: none;
+}
+.join-input::placeholder {
+  color: var(--color-white);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+}
+.join-label {
+  color: var(--color-white);
+  font-weight: 400;
+  font-size: 12px;
+}
+.join-checkbox {
+  margin-top: 10px;
+  margin-right: 5px;
+}
+.mail-btn {
+  width: 100%;
+  padding: 15px 0;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.05em;
+}
+.btns-wrapper {
   display: flex;
 }
-
-.right {
-  margin-left: auto;
-  width: 50%;
-  color: var(--color-white);
+.social-btn {
+  width: 100%;
+  padding: 15px 0;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.05em;
 }
-
-.title {
-  font-size: 44px;
-  font-weight: 400;
-  text-transform: uppercase;
-  margin-bottom: 30px;
+.social-btn:not(:last-child) {
+  margin-right: 8px;
 }
-
-.form {
-  font-size: 18px;
-}
-
-/* 768 */
-@media (max-width: 768px) {
+@media (min-width: 768px) {
+  .join-form {
+    max-width: 50%;
+    margin-left: auto;
+  }
   .join {
-    width: 768px;
-    height: 434px;
-    padding: 60px 20px;
-  }
-
-  .right {
-    width: 100%;
-  }
-
-  .title {
-    font-size: 32px;
+    padding-top: 60px;
   }
 }
-
-/* 375 */
-@media (max-width: 375px) {
+@media (min-width: 1440px) {
   .join {
-    width: 375px;
-    height: 437px;
-    padding: 162px 15px;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .right {
-    width: 100%;
-    margin: 0;
-  }
-
-  .title {
-    font-size: 24px;
-    margin-bottom: 30px;
+    padding-top: 125px;
   }
 }
 </style>

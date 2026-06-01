@@ -22,8 +22,8 @@
               spaceBetween: 8,
             },
             1440: {
-              slidesPerView: 4,
-              spaceBetween: 10,
+              slidesPerView: 'auto',
+              spaceBetween: 24,
             },
           }"
             class="slider"
@@ -137,6 +137,7 @@ const items = [
 }
 .show-all-button {
   padding: 16px 50px;
+  margin: 0 auto;
   margin-top: 40px;
 }
 .meta {
