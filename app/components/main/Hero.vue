@@ -49,7 +49,7 @@
               label="Гости"
               placeholder="1"
           />
-          <UiButton class="btn search-btn">Искать</UiButton>
+          <UiButton class="btn search-btn" @click="goToBases()">Искать</UiButton>
         </div>
       </form>
     </div>
@@ -95,6 +95,10 @@ const formatDate = (dates) => {
   }).format(d)
 
   return dates[1] ? `${fmt(dates[0])} — ${fmt(dates[1])}` : fmt(dates[0])
+}
+
+const goToBases = () => {
+
 }
 </script>
 

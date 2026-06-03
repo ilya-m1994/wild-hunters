@@ -4,6 +4,7 @@
         @login="openLogin"
         @register="openRegister"
     />
+<!--    <BaseHero />-->
     <main>
       <slot />
     </main>
@@ -18,6 +19,7 @@
 import AppHeader from "~/components/header/AppHeader.vue";
 import AppFooter from "~/components/footer/AppFooter.vue";
 import AuthModal from '~/components/auth/AuthModal.vue'
+import BaseHero from "~/components/main/Hero.vue";
 
 const isModalOpened = ref(false)
 const isLogin = ref(true)

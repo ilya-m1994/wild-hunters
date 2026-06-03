@@ -1,6 +1,5 @@
 <template>
   <div>
-    <BaseHero />
     <BaseWhyUs />
     <BestOffers />
     <BestLocations />
@@ -13,13 +12,13 @@
 </template>
 
 <script setup>
-import BestOffers from "~/components/base/BestOffers.vue";
-import BestLocations from "~/components/base/BestLocations.vue";
-import HowItWorks from "~/components/base/HowItWorks.vue";
-import JoinCommunity from "~/components/base/JoinCommunity.vue";
-import FAQ from "~/components/base/FAQ.vue";
-import Reviews from "~/components/base/Reviews.vue";
-import Description from "~/components/base/Description.vue";
+import BestOffers from "~/components/main/BestOffers.vue";
+import BestLocations from "~/components/main/BestLocations.vue";
+import HowItWorks from "~/components/main/HowItWorks.vue";
+import JoinCommunity from "~/components/main/JoinCommunity.vue";
+import FAQ from "~/components/main/FAQ.vue";
+import Reviews from "~/components/main/Reviews.vue";
+import Description from "~/components/main/Description.vue";
 
 useSeoMeta({
   title: 'Главная',

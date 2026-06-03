@@ -31,11 +31,9 @@ const close = () => {
   position: fixed;
   inset: 0;
   z-index: 1000;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   background: rgba(0,0,0,.5);
 }
 
@@ -57,7 +55,7 @@ const close = () => {
 
 @media (min-width: 768px) {
   .modal-content {
-    max-width: 460px;
+    max-width: 488px;
   }
 }
 
