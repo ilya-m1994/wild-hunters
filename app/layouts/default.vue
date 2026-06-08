@@ -1,9 +1,9 @@
 <template>
   <div style="background: var(--color-white)">
-    <AppHeader
-        @login="openLogin"
-        @register="openRegister"
-    />
+<!--    <AppHeader-->
+<!--        @login="openLogin"-->
+<!--        @register="openRegister"-->
+<!--    />-->
 <!--    <BaseHero />-->
     <main>
       <slot />

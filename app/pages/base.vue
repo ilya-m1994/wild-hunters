@@ -6,20 +6,28 @@
         <img src="~/assets/icons/framed-heart.svg" alt="framed-heart">
       </div>
       <div class="base-address">Москва, проспект Октября 21</div>
-      <ul class="base-services-list">
-        <li v-for="service in services" class="base-list-item">
-          <img src="~/assets/icons/checkmark.svg" alt="checkmark">
-          <span>{{ service }}</span>
-        </li>
-      </ul>
-      <div class="base-rating">
-        <div class="rating-wrapper">
-          <img src="~/assets/icons/star.svg" alt="star-icon">
-          <span>4,9</span>
+      <div class="base-descr-wrapper">
+        <ul class="base-services-list">
+          <li v-for="service in services" class="base-list-item">
+            <img src="~/assets/icons/checkmark.svg" alt="checkmark">
+            <span>{{ service }}</span>
+          </li>
+        </ul>
+        <div class="base-rating">
+          <div class="rating-wrapper">
+            <img src="~/assets/icons/star.svg" alt="star-icon">
+            <span>4,9</span>
+          </div>
+          <span class="reviews">32 отзыва</span>
         </div>
-        <span class="reviews">32 отзыва</span>
       </div>
       <div class="base-img"></div>
+      <div class="parent">
+        <div class="div1"></div>
+        <div class="div2"></div>
+        <div class="div3"></div>
+        <div class="div4"></div>
+      </div>
       <div class="base-info">
         Уютный современный номер со всеми удобствами и отдельным входом.Уютный современный номер со всеми удобствами Уютный современный номер со всеми удобствами и отдельным входом.Уютный современный номер со всеми удобствами и отдельным входом.
         Уютный современный номер со всеми удобствами и отдельным входом.Уютный современный номер
@@ -132,6 +140,10 @@ const animal = ref('')
   font-weight: 600;
   font-size: 20px;
 }
+.base-descr-wrapper {
+  display: flex;
+  flex-direction: column;
+}
 .base-services-list {
   display: flex;
 }
@@ -204,5 +216,39 @@ const animal = ref('')
   color: var(--color-dark);
   font-size: 16px;
   font-weight: 500;
+}
+.parent {
+  display: none;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 8px;
+  grid-row-gap: 8px;
+  margin-bottom: 20px;
+}
+.parent > div {
+  background-color: var(--color-grey);
+  border-radius: 12px;
+}
+
+.div1 {
+  grid-area: 1 / 1 / 3 / 3;
+  min-width: 360px;
+  min-height: 360px;
+}
+.div2 { grid-area: 1 / 3 / 2 / 5; }
+.div3 { grid-area: 2 / 3 / 3 / 4; }
+.div4 { grid-area: 2 / 4 / 3 / 5; }
+
+@media (min-width: 768px) {
+  .base-descr-wrapper {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .base-img {
+    display: none;
+  }
+  .parent {
+    display: grid;
+  }
 }
 </style>
