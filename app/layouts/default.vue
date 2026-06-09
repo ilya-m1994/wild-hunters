@@ -1,10 +1,10 @@
 <template>
   <div style="background: var(--color-white)">
-<!--    <AppHeader-->
-<!--        @login="openLogin"-->
-<!--        @register="openRegister"-->
-<!--    />-->
-<!--    <BaseHero />-->
+    <AppHeader
+        @login="openLogin"
+        @register="openRegister"
+    />
+    <BaseHero />
     <main>
       <slot />
     </main>
