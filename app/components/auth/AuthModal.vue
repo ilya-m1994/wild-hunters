@@ -3,13 +3,12 @@
       :model-value="modelValue"
       @update:model-value="emit('update:modelValue', $event)"
   >
-   <LoginForm v-if="isLogin" />
+   <LoginForm v-if="isLogin" @close="emit('update:modelValue', false)"/>
    <RegistrationForm v-else />
   </Modal>
 </template>
 
 <script setup>
-import { ref } from "vue";
 import Modal from '~/components/ui/Modal.vue'
 import LoginForm from "~/components/auth/LoginForm.vue";
 import RegistrationForm from "~/components/auth/RegistrationForm.vue";

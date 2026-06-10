@@ -2,31 +2,25 @@ export default defineNuxtConfig({
     devtools: {
         enabled: true,
     },
-
     modules: [
         '@pinia/nuxt',
     ],
-
     build: {
         transpile: ['@vuepic/vue-datepicker']
     },
-
     css: [
         '~/assets/css/main.css',
     ],
-
     runtimeConfig: {
         public: {
             // apiUrl: process.env.API_URL,
         },
     },
-
     app: {
         head: {
             htmlAttrs: {
                 lang: 'ru',
             },
-
             meta: [
                 {
                     charset: 'utf-8',
@@ -38,6 +32,5 @@ export default defineNuxtConfig({
             ],
         },
     },
-
     compatibilityDate: '2026-05-18',
 })

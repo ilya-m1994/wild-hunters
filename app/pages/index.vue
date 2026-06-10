@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseWhyUs />
+    <WhyUs />
     <BestOffers />
     <BestLocations />
     <HowItWorks />
@@ -19,6 +19,7 @@ import JoinCommunity from "~/components/main/JoinCommunity.vue";
 import FAQ from "~/components/main/FAQ.vue";
 import Reviews from "~/components/main/Reviews.vue";
 import Description from "~/components/main/Description.vue";
+import WhyUs from "~/components/main/WhyUs.vue";
 
 useSeoMeta({
   title: 'Главная',

@@ -27,16 +27,22 @@
 </template>
 
 <script setup>
-import UiInput from "~/components/ui/UiInput.vue";
-import UiButton from "~/components/ui/UiButton.vue";
 import { ref } from 'vue';
+import UiInput from '~/components/ui/UiInput.vue'
+import UiButton from '~/components/ui/UiButton.vue'
+import { useAuthStore } from '~/store/auth'
+import { useSpinnerStore } from '~/store/spinner.js'
 
-const emit = defineEmits(['reset-password']);
+const authStore = useAuthStore()
+const spinnerStore = useSpinnerStore()
+
+const emit = defineEmits(['reset-password', 'close']);
 const email = ref('denisburov1982@yandex.ru');
 const password = ref('DjM1w4Pe');
 
 const login = async () => {
   try {
+    spinnerStore.isLoading = true
     const response = await $fetch(
         'http://109.172.31.240/api/v1/login',
         {
@@ -48,9 +54,14 @@ const login = async () => {
         }
     )
 
-    console.log(response)
+    if (response.success) {
+      authStore.setAuth(response)
+      emit('close')
+    }
   } catch (error) {
     console.log(error)
+  } finally {
+    spinnerStore.isLoading = false
   }
 }
 </script>

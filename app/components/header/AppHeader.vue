@@ -7,22 +7,32 @@
 
       <img src="~/assets/img/logo.svg" alt="logotype">
 
-      <div class="header__buttons">
-        <UiButton
-            variant="text"
-            class="btn registration-button"
-            @click="$emit('register')"
-        >
-          Регистрация
-        </UiButton>
+      <template v-if="authStore.isLoggedIn">
+        <div class="logged-wrapper">
+          <NuxtLink to="/profile" class="user-name">
+            {{ authStore.user.first_name }} {{ authStore.user.last_name }}
+          </NuxtLink>
+          <UiButton class="btn" variant="text" @click="authStore.logout()">Выйти</UiButton>
+        </div>
+      </template>
+      <template v-else>
+        <div class="header__buttons">
+          <UiButton
+              variant="text"
+              class="btn registration-button"
+              @click="emit('register')"
+          >
+            Регистрация
+          </UiButton>
 
-        <UiButton
-            class="btn login-button"
-            @click="$emit('login')"
-        >
-          Вход
-        </UiButton>
-      </div>
+          <UiButton
+              class="btn login-button"
+              @click="emit('login')"
+          >
+            Вход
+          </UiButton>
+        </div>
+      </template>
     </div>
 
   </header>
@@ -30,11 +40,10 @@
 
 <script setup>
 import BurgerMenu from '~/components/header/BurgerMenu.vue'
+import { useAuthStore } from '~/store/auth'
 
-defineEmits([
-  'login',
-  'register'
-])
+const authStore = useAuthStore()
+const emit = defineEmits(['login', 'register'])
 </script>
 
 <style scoped>
@@ -72,7 +81,16 @@ defineEmits([
   font-weight: 500;
   background: var(--color-accent);
 }
-
+.user-name {
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-right: 8px;
+}
+.logged-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 @media (min-width: 768px) {
   .header-wrapper{
     max-width: 728px;

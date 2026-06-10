@@ -1,5 +1,6 @@
 <template>
   <div style="background: var(--color-white)">
+    <AppSpinner />
     <AppHeader
         @login="openLogin"
         @register="openRegister"
@@ -20,6 +21,7 @@ import AppHeader from "~/components/header/AppHeader.vue";
 import AppFooter from "~/components/footer/AppFooter.vue";
 import AuthModal from '~/components/auth/AuthModal.vue'
 import BaseHero from "~/components/main/Hero.vue";
+import AppSpinner from "~/components/ui/AppSpinner.vue";
 
 const isModalOpened = ref(false)
 const isLogin = ref(true)
