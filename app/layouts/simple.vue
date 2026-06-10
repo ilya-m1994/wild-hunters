@@ -16,11 +16,10 @@
   </div>
 </template>
 <script setup>
-import AppHeader from "~/components/header/AppHeader.vue";
-import AppFooter from "~/components/footer/AppFooter.vue";
+import AppHeader from '~/components/header/AppHeader.vue'
+import AppFooter from '~/components/footer/AppFooter.vue'
 import AuthModal from '~/components/auth/AuthModal.vue'
-import Hero from "~/components/main/Hero.vue";
-import AppSpinner from "~/components/ui/AppSpinner.vue";
+import AppSpinner from '~/components/ui/AppSpinner.vue'
 
 const isModalOpened = ref(false)
 const isLogin = ref(true)
@@ -35,7 +34,3 @@ const openRegister = () => {
   isModalOpened.value = true
 }
 </script>
-
-<style>
-
-</style>

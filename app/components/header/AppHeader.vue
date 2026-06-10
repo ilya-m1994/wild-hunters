@@ -2,6 +2,14 @@
   <header class="header">
     <div class="header-wrapper">
       <div class="header-menu">
+        <div class="header-links">
+          <NuxtLink to="/members" class="user-name">
+            Для охотников
+          </NuxtLink>
+          <NuxtLink to="/cooperation" class="user-name">
+            Для охотхозяйств
+          </NuxtLink>
+        </div>
         <BurgerMenu />
       </div>
 
@@ -65,6 +73,9 @@ const emit = defineEmits(['login', 'register'])
   background: var(--color-white);
   padding: 20px 15px;
 }
+.header-links {
+  display: none;
+}
 .header__buttons{
   display: flex;
   justify-content: flex-end;
@@ -92,6 +103,9 @@ const emit = defineEmits(['login', 'register'])
   justify-content: flex-end;
 }
 @media (min-width: 768px) {
+  .header-links {
+    display: flex;
+  }
   .header-wrapper{
     max-width: 728px;
     max-height: 100px;

@@ -1,4 +1,5 @@
 <template>
+  <Hero variant="compact" />
   <section class="bases-section">
     <div class="container">
       <div class="title-wrapper">
@@ -61,11 +62,11 @@
 
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
-
 import BaseCard from '~/components/bases/BaseCard.vue'
 import FiltersList from '~/components/bases/FiltersList.vue'
 import JoinCommunity from '~/components/main/JoinCommunity.vue'
 import Modal from '~/components/ui/Modal.vue'
+import Hero from "~/components/main/Hero.vue";
 
 const showFilters = ref(false)
 const screenWidth = ref(0)

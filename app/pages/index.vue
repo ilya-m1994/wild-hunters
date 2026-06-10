@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Hero variant="home" />
     <WhyUs />
     <BestOffers />
     <BestLocations />
@@ -20,6 +21,7 @@ import FAQ from "~/components/main/FAQ.vue";
 import Reviews from "~/components/main/Reviews.vue";
 import Description from "~/components/main/Description.vue";
 import WhyUs from "~/components/main/WhyUs.vue";
+import Hero from "~/components/main/Hero.vue";
 
 useSeoMeta({
   title: 'Главная',

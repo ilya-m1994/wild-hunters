@@ -1,5 +1,5 @@
 <template>
-  <section class="hero">
+  <section class="hero" :class="{ 'hero--home': variant === 'home', 'hero--compact': variant === 'compact' }">
     <div class="hero-wrapper">
       <h1 class="hero-title">Онлайн-платформа для настоящих охотников</h1>
       <form class="hero-form">
@@ -57,12 +57,20 @@
 </template>
 
 <script setup>
-import CustomSelect from "~/components/ui/Custom-Select.vue";
-import CustomGuestsSelect from "~/components/ui/Custom-Guests-Select.vue";
-import { ref } from "vue";
+import CustomSelect from '~/components/ui/Custom-Select.vue'
+import CustomGuestsSelect from '~/components/ui/Custom-Guests-Select.vue'
+import { ref } from 'vue'
 import { VueDatePicker } from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import { ru } from 'date-fns/locale'
+
+defineProps({
+  variant: {
+    type: String,
+    default: 'home',
+  }
+})
+
 
 const directions = ['Московская область', 'Ярославская область', 'Тверская область']
 const animals = ['Утка', 'Кабан', 'Лось', 'Косуля']
@@ -105,10 +113,18 @@ const goToBases = () => {
 <style scoped>
 .hero{
   padding-top: 124px;
+}
+
+.hero--home {
   background-image: url("~/assets/img/hero.webp");
   background-size: cover;
   background-position: center;
   min-height: 747px;
+}
+
+.hero--compact {
+  background: var(--color-primary);
+  min-height: 340px;
 }
 .hero-title {
   font-family: Uncage, sans-serif;
@@ -155,6 +171,13 @@ const goToBases = () => {
   padding: 27px 0;
   width: 100%;
   margin-left: 4px;
+}
+
+.hero--large {
+  min-height: 747px;
+}
+.hero--small {
+  min-height: 340px;
 }
 
 @media (min-width: 768px) {

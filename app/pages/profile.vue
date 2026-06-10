@@ -12,7 +12,7 @@
 <script setup>
 import ProfileCard from "~/components/profile/ProfileCard.vue";
 import ProfileChangePassword from "~/components/profile/ProfileChangePassword.vue";
-
+definePageMeta({ layout: 'profile' })
 const activeTab = ref("profile");
 </script>
 

@@ -112,11 +112,13 @@
 
 <script setup>
 import { ref } from 'vue'
-import JoinCommunity from "~/components/main/JoinCommunity.vue";
-import CustomGuestsSelect from "~/components/ui/Custom-Guests-Select.vue";
-import CustomSelect from "~/components/ui/Custom-Select.vue";
-import {ru} from "date-fns/locale";
-import {VueDatePicker} from "@vuepic/vue-datepicker";
+import JoinCommunity from '~/components/main/JoinCommunity.vue'
+import CustomGuestsSelect from '~/components/ui/Custom-Guests-Select.vue'
+import CustomSelect from '~/components/ui/Custom-Select.vue'
+import {ru} from 'date-fns/locale'
+import {VueDatePicker} from '@vuepic/vue-datepicker'
+
+definePageMeta({ layout: 'simple' })
 
 const animals = ['Утка', 'Кабан', 'Лось', 'Косуля']
 const services = ref(['WI-FI', 'Минибар', 'Минибар'])
