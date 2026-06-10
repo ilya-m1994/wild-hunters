@@ -2,10 +2,6 @@
   <header class="header">
     <div class="header-wrapper">
       <div class="header-menu">
-        <div class="header__dropdowns">
-          <UiDropdown title="Для охотников" />
-          <UiDropdown title="Для охотохозяйств" />
-        </div>
         <BurgerMenu />
       </div>
 
@@ -50,28 +46,24 @@ defineEmits([
   z-index: 100;
 }
 .header-wrapper {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
   margin: 0 auto;
   max-height: 86px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   border-bottom-right-radius: 12px;
   border-bottom-left-radius: 12px;
   background: var(--color-white);
   padding: 20px 15px;
 }
-.header__dropdowns {
-  display: none;
-}
 .header__buttons{
   display: flex;
+  justify-content: flex-end;
 }
 .registration-button {
   display: none;
   background: transparent;
   font-weight: 500;
-  letter-spacing: -5%;
-
 }
 
 .login-button {
@@ -89,9 +81,6 @@ defineEmits([
   .registration-button {
     display: block;
     margin-right: 8px;
-  }
-  .header__dropdowns {
-    display: flex;
   }
 }
 

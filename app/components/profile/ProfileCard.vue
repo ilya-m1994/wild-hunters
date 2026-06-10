@@ -10,15 +10,15 @@
     </div>
     <div>
       <ul class="profile-list">
-        <li class="profile-list-item">
+        <li class="profile-list-item" @click="emit('change-tab', 'bookings')">
           <img class="profile-icon" src="~/assets/icons/clock.svg" alt="clock">
           <span class="profile-chapter">Бронирования</span>
         </li>
-        <li class="profile-list-item">
+        <li class="profile-list-item" @click="emit('change-tab', 'profile')">
           <img class="profile-icon" src="~/assets/icons/setting.svg" alt="setting">
           <span class="profile-chapter">Мой профиль</span>
         </li>
-        <li class="profile-list-item">
+        <li class="profile-list-item" @click="emit('change-tab', 'password')">
           <img class="profile-icon" src="~/assets/icons/pencil.svg" alt="pencil">
           <span class="profile-chapter">Изменить пароль</span>
         </li>
@@ -32,7 +32,14 @@
 </template>
 
 <script setup>
+defineProps({
+  activeTab: {
+    type: String,
+    required: true,
+  },
+});
 
+const emit = defineEmits(["change-tab"]);
 </script>
 
 <style scoped>
@@ -89,6 +96,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 12px;
+  cursor: pointer;
 }
 .profile-icon {
   margin-right: 8px;
@@ -129,7 +137,7 @@
     flex-direction: column;
     justify-content: start;
     width: 274px;
-    height: 850px;
+    max-height: 850px;
   }
   .profile-card-title {
     flex-direction: column;

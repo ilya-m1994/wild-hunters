@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <section class="profile-section">
     <h1 class="section-title profile-form-title">Настройки</h1>
-    <span class="frofile-id">Личная информация: ID: 6363</span>
+    <span class="profile-id">Личная информация: ID: 6363</span>
     <form class="profile-form">
       <div>
         <div class="form-item-wrapper">
@@ -53,7 +53,7 @@
       </div>
     </form>
     <UiButton class="btn profile-submit-btn">Сохранить изменения</UiButton>
-  </div>
+  </section>
 </template>
 
 <script setup>
@@ -62,10 +62,13 @@ import UiInput from "~/components/ui/UiInput.vue";
 </script>
 
 <style scoped>
+.profile-section {
+  width: 100%;
+}
 .profile-form-title {
   text-align: left;
 }
-.frofile-id {
+.profile-id {
   margin: 20px 0 20px 0;
   font-weight: 600;
   font-size: 20px;

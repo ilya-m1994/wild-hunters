@@ -1,9 +1,10 @@
 <template>
   <section class="profile-section">
     <div class="container profile-section-wrapper">
-      <ProfileCard />
-      <ProfileForm />
-<!--      <ProfileChangePassword />-->
+      <ProfileCard :active-tab="activeTab" @change-tab="activeTab = $event" />
+      <ProfileForm v-if="activeTab === 'profile'" />
+      <ProfileBookings v-if="activeTab === 'bookings'" />
+      <ProfileChangePassword v-if="activeTab === 'password'" />
     </div>
   </section>
 </template>
@@ -11,6 +12,8 @@
 <script setup>
 import ProfileCard from "~/components/profile/ProfileCard.vue";
 import ProfileChangePassword from "~/components/profile/ProfileChangePassword.vue";
+
+const activeTab = ref("profile");
 </script>
 
 <style scoped>
