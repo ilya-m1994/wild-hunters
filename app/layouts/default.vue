@@ -1,27 +1,30 @@
 <template>
-  <div style="background: var(--color-white)">
-    <AppSpinner />
-    <AppHeader
-        @login="openLogin"
-        @register="openRegister"
-    />
-    <main>
-      <slot />
-    </main>
-    <AppFooter />
-    <AuthModal
-        v-model="isModalOpened"
-        :is-login="isLogin"
-    />
+  <div>
+    <AppSpinner v-if="!authStore.isReady" />
+    <template v-else>
+      <AppHeader
+          @login="openLogin"
+          @register="openRegister"
+      />
+      <main>
+        <slot />
+      </main>
+      <AppFooter />
+      <AuthModal
+          v-model="isModalOpened"
+          :is-login="isLogin"
+      />
+    </template>
   </div>
 </template>
 <script setup>
-import AppHeader from "~/components/header/AppHeader.vue";
-import AppFooter from "~/components/footer/AppFooter.vue";
+import AppHeader from '~/components/header/AppHeader.vue'
+import AppFooter from '~/components/footer/AppFooter.vue'
 import AuthModal from '~/components/auth/AuthModal.vue'
-import Hero from "~/components/main/Hero.vue";
-import AppSpinner from "~/components/ui/AppSpinner.vue";
+import AppSpinner from '~/components/ui/AppSpinner.vue'
+import { useAuthStore } from '~/store/auth'
 
+const authStore = useAuthStore()
 const isModalOpened = ref(false)
 const isLogin = ref(true)
 

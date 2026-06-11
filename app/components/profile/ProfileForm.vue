@@ -46,7 +46,7 @@
       <div>
         <div class="form-item-wrapper">
           <span class="form-label">Номер охот.билета</span>
-          <UiInput type="text" placeholder="Введите номер охотнического билета"/>
+          <UiInput v-model="userStore.hunterBilletNumber" type="text" placeholder="Введите номер охотнического билета"/>
         </div>
         <ProfileLicense
             v-for="(weapon, index) in userStore.weapons"
@@ -61,7 +61,7 @@
           >
             Добавить оружие
           </UiButton>
-          <UiButton class="btn" variant="text">Отмена</UiButton>
+          <UiButton class="btn" variant="text" disabled>Отмена</UiButton>
         </div>
       </div>
     </form>

@@ -12,6 +12,8 @@ export const useUserStore = defineStore('user', () => {
     const error = ref(null)
     const availableWeapons = ref(null)
     const availableCalibers = ref(null)
+    const weaponErrors = ref(null)
+    const weaponErrorModal = ref(false)
 
     const role = computed(() => {return profile.value?.role ?? 'Охотник'})
     const fullName = computed(() => {return profile.value?.name ?? 'Имя пользователя'})
@@ -24,6 +26,7 @@ export const useUserStore = defineStore('user', () => {
     const phone = computed(() => {return profile.value?.phone ?? ''})
     const birthday = computed(() => {return profile.value?.birthday ?? ''})
     const avatarUrl = computed(() => {return profile.value?.avatar_url ?? defaultAvatar})
+    const hunterBilletNumber = computed(() => {return profile.value?.hunter_billet_number ?? ''})
     const weapons = computed(() =>
         (profile.value?.weapons ?? []).map(weapon => ({
             billetNumber: weapon.hunter_billet_number ?? '',
@@ -141,13 +144,14 @@ export const useUserStore = defineStore('user', () => {
         const weapon = profile.value.weapons[index]
 
         const payload = {
-            hunter_billet_number: weapon.hunter_billet_number,
+            hunter_billet_number: hunterBilletNumber.value,
             hunter_license_number: weapon.hunter_license_number,
-            hunter_license_date: weapon.hunter_license_date,
+            hunter_license_date: '2026-01-01',
             weapon_type_id: weapon.weapon_type_id,
             caliber: weapon.caliber,
         }
         spinnerStore.isLoading = true
+        weaponErrors.value = null
         try {
             await $fetch('http://109.172.31.240/api/v1/user/weapons', {
                 method: 'POST',
@@ -156,8 +160,15 @@ export const useUserStore = defineStore('user', () => {
                 },
                 body: payload
             })
-        } catch (e) {
-            error.value = e
+        } catch (error) {
+            const data = error?.data
+
+            if (data?.error_code === 'validation_error') {
+                weaponErrors.value = data.errors
+                weaponErrorModal.value = true
+            } else {
+                error.value = error
+            }
         } finally {
             spinnerStore.isLoading = false
         }
@@ -176,10 +187,13 @@ export const useUserStore = defineStore('user', () => {
         phone,
         birthday,
         avatarUrl,
+        hunterBilletNumber,
         weapons,
         availableWeapons,
         availableCalibers,
         error,
+        weaponErrors,
+        weaponErrorModal,
         fetchProfile,
         clear,
         fetchWeapons,

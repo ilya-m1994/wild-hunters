@@ -1,12 +1,18 @@
 <template>
   <div class="license-wrapper">
     <span class="license-title">Лицензия #{{ weapon.licenseNumber }}</span>
+    <UiInput
+        :model-value="weapon.licenseNumber"
+        type="text"
+        placeholder="000000"
+        @update:modelValue="val => userStore.updateWeapon(index, { hunter_license_number: val })"
+    />
     <div>
       <div class="form-item--flex-wrapper">
         <div class="form-item-wrapper">
           <span class="form-label">Номер</span>
           <UiInput
-              :model-value="weapon.billetNumber"
+              :model-value="userStore.hunterBilletNumber"
               type="text"
               placeholder="Номер билета"
               @update:modelValue="val => userStore.updateWeapon(index, { hunter_billet_number: val })"
@@ -41,7 +47,7 @@
       <div class="form-item-wrapper">
         <span class="form-label">Калибр</span>
         <select
-            :value="weapon.weaponTypeId"
+            :value="weapon.caliber"
             class="weapons-select"
             @change="e => userStore.updateWeapon(index, { caliber: e.target.value })"
         >
@@ -63,10 +69,32 @@
       Сохранить
     </UiButton>
   </div>
+  <Modal v-model="userStore.weaponErrorModal">
+    <div>
+      <h3>Ошибки сохранения</h3>
+
+      <ul v-if="userStore.weaponErrors">
+        <li
+            v-for="(msgs, field) in userStore.weaponErrors"
+            :key="field"
+        >
+          <strong>{{ field }}:</strong>
+          <span v-for="msg in msgs" :key="msg">
+          {{ msg }}
+        </span>
+        </li>
+      </ul>
+
+      <UiButton class="btn" @click.prevent="userStore.weaponErrorModal = false">
+        Закрыть
+      </UiButton>
+    </div>
+  </Modal>
 </template>
 
 <script setup>
 import UiInput from '~/components/ui/UiInput.vue'
+import Modal from '~/components/ui/Modal.vue'
 import { useUserStore } from '~/store/user.js'
 
 const userStore = useUserStore()

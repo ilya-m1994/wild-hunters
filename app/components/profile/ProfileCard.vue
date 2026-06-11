@@ -24,8 +24,10 @@
         </li>
       </ul>
       <div class="profile-links">
-        <span class="profile-link">Назад на главную</span>
-        <span class="profile-link">Выйти</span>
+        <NuxtLink class="profile-link" to="/">
+          Назад на главную
+        </NuxtLink>
+        <UiButton class="btn profile-link" variant="text" @click.prevent="authStore.logout()">Выйти</UiButton>
       </div>
     </div>
   </div>
@@ -33,8 +35,10 @@
 
 <script setup>
 import { useUserStore } from '~/store/user'
+import { useAuthStore } from '~/store/auth'
 
 const userStore = useUserStore()
+const authStore = useAuthStore()
 
 defineProps({
   activeTab: {
@@ -110,9 +114,16 @@ const emit = defineEmits(["change-tab"]);
   font-size: 18px;
 }
 .profile-links {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
   font-weight: 400;
   font-size: 16px;
   text-align: left;
+}
+.profile-link {
+  color: var(--color-white);
+  padding: 0;
 }
 .profile-link:not(:last-child) {
   margin-bottom: 12px;
