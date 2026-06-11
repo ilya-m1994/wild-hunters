@@ -96,6 +96,7 @@ const emit = defineEmits(['login', 'register'])
   color: var(--color-accent);
   font-weight: 600;
   margin-right: 8px;
+  align-self: center;
 }
 .logged-wrapper {
   display: flex;

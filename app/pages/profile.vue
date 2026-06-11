@@ -12,8 +12,20 @@
 <script setup>
 import ProfileCard from "~/components/profile/ProfileCard.vue";
 import ProfileChangePassword from "~/components/profile/ProfileChangePassword.vue";
+import { onMounted } from 'vue'
+import { useUserStore } from '~/store/user'
+
+const userStore = useUserStore()
 definePageMeta({ layout: 'profile' })
 const activeTab = ref("profile");
+
+onMounted(() => {
+  if (!userStore.profile) {
+    userStore.fetchProfile()
+    userStore.fetchWeapons()
+    userStore.fetchCalibers()
+  }
+})
 </script>
 
 <style scoped>

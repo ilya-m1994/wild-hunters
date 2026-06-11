@@ -1,43 +1,46 @@
 <template>
   <section class="profile-section">
     <h1 class="section-title profile-form-title">Настройки</h1>
-    <span class="profile-id">Личная информация: ID: 6363</span>
+    <div class="profile-id-wrapper">
+      <span class="profile-id-title">Личная информация</span>
+      <span class="profile-id">ID: {{ userStore.userId }}</span>
+    </div>
     <form class="profile-form">
       <div>
         <div class="form-item-wrapper">
           <span class="form-label">Ник</span>
-          <UiInput type="text" placeholder="Ник пользователя"/>
+          <UiInput v-model="userStore.nickname" type="text" placeholder="Ник пользователя"/>
         </div>
         <div class="form-item-wrapper">
           <span class="form-label">Email</span>
-          <UiInput type="text" placeholder="tihonasar@gmail.com"/>
+          <UiInput v-model="userStore.email" type="text" placeholder="example@gmail.com"/>
         </div>
         <div class="form-item--flex-wrapper">
           <div class="form-item-wrapper">
             <span class="form-label">Имя</span>
-            <UiInput type="text" placeholder="Назар"/>
+            <UiInput v-model="userStore.firstName" type="text" placeholder="Введите имя"/>
           </div>
           <div class="form-item-wrapper">
             <span class="form-label">Фамилия</span>
-            <UiInput type="text" placeholder="Мухаметгалеев"/>
+            <UiInput v-model="userStore.lastName" type="text" placeholder="Фамилия"/>
           </div>
         </div>
         <div class="form-item-wrapper">
           <span class="form-label">Номер телефона</span>
-          <UiInput type="text" placeholder="+7 (999) 999-99-98"/>
+          <UiInput v-model="userStore.phone" type="text" placeholder="+7 (999) 999-99-98"/>
         </div>
         <div class="form-item-wrapper">
           <span class="form-label">Дата рождения</span>
-          <UiInput type="text" placeholder="03.03.2026"/>
+          <UiInput v-model="userStore.birthday" type="text" placeholder="00.00.0000"/>
         </div>
         <div class="form-item-wrapper">
-          <span class="form-label">Дата рождения</span>
+          <span class="form-label">Обо мне</span>
           <textarea class="profile-form-textarea" rows="6" cols="33"></textarea>
         </div>
         <div class="form-item-wrapper">
           <span class="form-label">Аватар</span>
-          <UiInput type="file" placeholder="03.03.2026"/>
-          <img class="profile-avatar" src="~/assets/icons/profile-avatar.svg" alt="profile-avatar">
+          <UiInput type="file" placeholder="Файл"/>
+          <img class="profile-avatar" :src="userStore.avatarUrl" alt="profile-avatar">
         </div>
       </div>
       <div>
@@ -45,9 +48,19 @@
           <span class="form-label">Номер охот.билета</span>
           <UiInput type="text" placeholder="Введите номер охотнического билета"/>
         </div>
-        <ProfileLicense />
+        <ProfileLicense
+            v-for="(weapon, index) in userStore.weapons"
+            :key="index"
+            :weapon="weapon"
+            :index="index"
+        />
         <div class="profile-btns-wrapper">
-          <UiButton class="btn profile-btn">Добавить оружие</UiButton>
+          <UiButton
+              class="btn profile-btn"
+              @click.prevent="userStore.addWeapon"
+          >
+            Добавить оружие
+          </UiButton>
           <UiButton class="btn" variant="text">Отмена</UiButton>
         </div>
       </div>
@@ -57,8 +70,10 @@
 </template>
 
 <script setup>
+import UiInput from '~/components/ui/UiInput.vue'
+import { useUserStore } from '~/store/user.js'
 
-import UiInput from "~/components/ui/UiInput.vue";
+const userStore = useUserStore()
 </script>
 
 <style scoped>
@@ -67,12 +82,25 @@ import UiInput from "~/components/ui/UiInput.vue";
 }
 .profile-form-title {
   text-align: left;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-grey);
 }
-.profile-id {
+.profile-id-wrapper {
   margin: 20px 0 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.profile-id-title {
   font-weight: 600;
   font-size: 20px;
 }
+
+.profile-id {
+  font-weight: 400;
+  font-size: 14px;
+}
+
 .profile-form {
   display: flex;
   flex-direction: column;

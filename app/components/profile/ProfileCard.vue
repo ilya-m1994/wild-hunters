@@ -3,9 +3,9 @@
     <div class="profile-card-title">
       <img class="profile-photo" src="~/assets/icons/profile-photo.svg" alt="profile-photo" />
       <div class="profile-title-wrapper">
-        <span class="profile-role">Охотник</span>
-        <span class="profile-name">Назар Тихонов</span>
-        <span class="profile-since">Участник с: Feb 2026</span>
+        <span class="profile-role">{{ userStore.role }}</span>
+        <span class="profile-name">{{ userStore.fullName }}</span>
+        <span class="profile-since">Участник с: {{ userStore.createdAt }}</span>
       </div>
     </div>
     <div>
@@ -32,6 +32,10 @@
 </template>
 
 <script setup>
+import { useUserStore } from '~/store/user'
+
+const userStore = useUserStore()
+
 defineProps({
   activeTab: {
     type: String,
