@@ -3,14 +3,44 @@
     <div class="container">
       <div class="join-form">
         <h2 class="section-title join-title">Присоединяйтесь к нашему сообществу</h2>
-        <form>
-          <input type="text" placeholder="Ваш email" class="join-input">
+        <form @submit.prevent="subscribe">
+          <input
+              v-model="email"
+              type="text"
+              placeholder="Ваш email"
+              class="join-input"
+          />
+          <div v-if="fieldError('email')" class="join-error">
+            {{ fieldError('email') }}
+          </div>
+
           <label class="join-label">
-            <input class="join-checkbox" type="checkbox" checked />
+            <input
+                v-model="privacyPolicy"
+                class="join-checkbox"
+                type="checkbox"
+            />
             <label>Я согласен с политикой конфиденциальности</label>
           </label>
+          <div v-if="fieldError('privacy_policy')" class="join-error">
+            {{ fieldError('privacy_policy') }}
+          </div>
+
+          <p v-if="generalError" class="join-error join-error--general">
+            {{ generalError }}
+          </p>
+          <p v-if="successMessage" class="join-success">
+            {{ successMessage }}
+          </p>
+
           <div>
-            <UiButton class="btn mail-btn">Подписаться на рассылку</UiButton>
+            <UiButton
+                class="btn mail-btn"
+                :disabled="spinnerStore.isLoading"
+                @click.prevent="subscribe"
+            >
+              Подписаться на рассылку
+            </UiButton>
             <div class="btns-wrapper">
               <UiButton class="btn social-btn">TELEGRAM</UiButton>
               <UiButton class="btn social-btn">MAX</UiButton>
@@ -23,6 +53,67 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import UiButton from '~/components/ui/UiButton.vue'
+import { useSpinnerStore } from '~/store/spinner.js'
+
+const spinnerStore = useSpinnerStore()
+
+const email = ref('')
+const privacyPolicy = ref(true)
+
+const generalError = ref(null)
+const fieldErrors = ref(null)
+const successMessage = ref(null)
+
+const fieldError = (field) => {
+  return fieldErrors.value?.[field]?.[0] ?? null
+}
+
+const subscribe = async () => {
+  generalError.value = null
+  fieldErrors.value = null
+  successMessage.value = null
+
+  try {
+    spinnerStore.isLoading = true
+    const response = await $fetch(
+        'http://109.172.31.240/api/v1/user/newsletter/subscribe',
+        {
+          method: 'POST',
+          body: {
+            email: email.value,
+            privacy_policy: privacyPolicy.value
+          }
+        }
+    )
+
+    if (response.success) {
+      successMessage.value = response.message || 'Вы успешно подписались на рассылку'
+      email.value = ''
+    } else {
+      handleErrorResponse(response)
+    }
+  } catch (error) {
+    const data = error?.data
+
+    if (data) {
+      handleErrorResponse(data)
+    } else {
+      generalError.value = 'Не удалось оформить подписку. Попробуйте позже.'
+    }
+  } finally {
+    spinnerStore.isLoading = false
+  }
+}
+
+const handleErrorResponse = (data) => {
+  if (data.error_code === 'validation_error' && data.errors && !Array.isArray(data.errors)) {
+    fieldErrors.value = data.errors
+  } else {
+    generalError.value = data.message ?? 'Не удалось оформить подписку'
+  }
+}
 </script>
 
 <style scoped>
@@ -67,6 +158,21 @@
 .join-checkbox {
   margin-top: 10px;
   margin-right: 5px;
+}
+.join-error {
+  color: var(--color-error);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  margin-top: 4px;
+}
+.join-error--general {
+  margin-top: 8px;
+}
+.join-success {
+  color: var(--color-white);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  margin-top: 8px;
 }
 .mail-btn {
   width: 100%;

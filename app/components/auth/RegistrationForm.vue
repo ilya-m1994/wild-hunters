@@ -3,19 +3,46 @@
     <div class="form-title">Регистрация</div>
     <form>
       <div class="name-input">
-        <UiInput v-model="firstName" class="reg-name" type="text" placeholder="Имя"/>
-        <UiInput v-model="lastName" type="text" placeholder="Фамилия"/>
+        <UiInput
+            v-model="firstName"
+            class="reg-name"
+            type="text"
+            placeholder="Имя"
+            :error-message="fieldError('firstName')"
+        />
+        <UiInput
+            v-model="lastName"
+            type="text"
+            placeholder="Фамилия"
+            :error-message="fieldError('lastName')"
+        />
       </div>
-      <UiInput v-model="phone" type="phone" placeholder="Телефон"/>
-      <UiInput v-model="email" type="email" placeholder="Адрес Email"/>
-      <UiInput v-model="password" type="text" placeholder="Пароль"/>
+      <UiInput
+          v-model="phone"
+          type="phone"
+          placeholder="Телефон"
+          :error-message="fieldError('phone')"
+      />
+      <UiInput
+          v-model="email"
+          type="email"
+          placeholder="Адрес Email"
+          :error-message="fieldError('email')"
+      />
+      <UiInput
+          v-model="password"
+          type="text"
+          placeholder="Пароль"
+          :error-message="fieldError('password')"
+      />
       <div class="form-check">
         <div>
           <input type="checkbox" checked />
           <label>Мною прочитаны и принимаются <a href="" class="terms">Условия использования и Политика конфиденциальности</a></label>
         </div>
       </div>
-      <UiButton class="btn login-button" @click.prevent="login()">
+      <p v-if="generalError" class="general-error">{{ generalError }}</p>
+      <UiButton class="btn login-button" :disabled="spinnerStore.isLoading" @click.prevent="login()">
         Регистрация
       </UiButton>
       <div class="form-registration">
@@ -31,9 +58,16 @@
 <script setup>
 import UiInput from '~/components/ui/UiInput.vue'
 import UiButton from '~/components/ui/UiButton.vue'
-import {ref} from 'vue'
+import { ref } from 'vue'
+import { useAuthStore } from '~/store/auth'
+import { useSpinnerStore } from '~/store/spinner.js'
+import { useUserStore } from '~/store/user'
 
-const emit = defineEmits(['switch-mode'])
+const userStore = useUserStore()
+const authStore = useAuthStore()
+const spinnerStore = useSpinnerStore()
+
+const emit = defineEmits(['switch-mode', 'close'])
 
 const firstName = ref('')
 const lastName = ref('')
@@ -41,8 +75,19 @@ const phone = ref('')
 const email = ref('')
 const password = ref('')
 
+const generalError = ref(null)
+const fieldErrors = ref(null)
+
+const fieldError = (field) => {
+  return fieldErrors.value?.[field]?.[0] ?? null
+}
+
 const login = async () => {
+  generalError.value = null
+  fieldErrors.value = null
+
   try {
+    spinnerStore.isLoading = true
     const response = await $fetch(
         'http://109.172.31.240/api/v1/register',
         {
@@ -59,9 +104,31 @@ const login = async () => {
         }
     )
 
-    console.log(response)
+    if (response.success) {
+      authStore.setAuth(response)
+      await userStore.fetchProfile()
+      emit('close')
+    } else {
+      handleErrorResponse(response)
+    }
   } catch (error) {
-    console.log(error)
+    const data = error?.data
+
+    if (data) {
+      handleErrorResponse(data)
+    } else {
+      generalError.value = 'Не удалось выполнить регистрацию. Попробуйте позже.'
+    }
+  } finally {
+    spinnerStore.isLoading = false
+  }
+}
+
+const handleErrorResponse = (data) => {
+  if (data.error_code === 'validation_error' && data.errors && !Array.isArray(data.errors)) {
+    fieldErrors.value = data.errors
+  } else {
+    generalError.value = data.message ?? 'Не удалось выполнить регистрацию'
   }
 }
 </script>
@@ -81,6 +148,12 @@ const login = async () => {
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 20px;
+}
+
+.general-error {
+  font-family: 'Inter', sans-serif;
+  color: var(--color-error);
+  margin-bottom: 16px;
 }
 
 .form-check {

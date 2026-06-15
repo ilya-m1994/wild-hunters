@@ -2,8 +2,19 @@
   <div class="form-container">
     <div class="form-title">Вход</div>
     <form action="">
-      <UiInput v-model="email" type="email" placeholder="Адрес Email"/>
-      <UiInput v-model="password" type="text" placeholder="Пароль"/>
+      <UiInput
+          v-model="email"
+          type="email"
+          placeholder="Адрес Email"
+          :error-message="fieldError('email')"
+      />
+      <UiInput
+          v-model="password"
+          type="text"
+          placeholder="Пароль"
+          :error-message="fieldError('password')"
+      />
+      <p v-if="generalError" class="general-error">{{ generalError }}</p>
       <div class="form-check">
         <div>
           <input type="checkbox" checked />
@@ -13,7 +24,7 @@
           Забыли пароль?
         </UiButton>
       </div>
-      <UiButton class="btn login-button" @click.prevent="login()">
+      <UiButton class="btn login-button" :disabled="spinnerStore.isLoading" @click.prevent="login()">
         Вход
       </UiButton>
       <div class="form-registration">
@@ -27,20 +38,33 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 import UiInput from '~/components/ui/UiInput.vue'
 import UiButton from '~/components/ui/UiButton.vue'
 import { useAuthStore } from '~/store/auth'
 import { useSpinnerStore } from '~/store/spinner.js'
+import { useUserStore } from '~/store/user'
+
+const userStore = useUserStore()
 
 const authStore = useAuthStore()
 const spinnerStore = useSpinnerStore()
 
-const emit = defineEmits(['reset-password', 'close', 'switch-mode']);
+const emit = defineEmits(['reset-password', 'close', 'switch-mode'])
 const email = ref('denisburov1982@yandex.ru');
 const password = ref('DjM1w4Pe');
 
+const generalError = ref(null)
+const fieldErrors = ref(null)
+
+const fieldError = (field) => {
+  return fieldErrors.value?.[field]?.[0] ?? null
+}
+
 const login = async () => {
+  generalError.value = null
+  fieldErrors.value = null
+
   try {
     spinnerStore.isLoading = true
     const response = await $fetch(
@@ -56,12 +80,29 @@ const login = async () => {
 
     if (response.success) {
       authStore.setAuth(response)
+      await userStore.fetchProfile()
       emit('close')
+    } else {
+      handleErrorResponse(response)
     }
   } catch (error) {
-    console.log(error)
+    const data = error?.data
+
+    if (data) {
+      handleErrorResponse(data)
+    } else {
+      generalError.value = 'Не удалось выполнить вход. Попробуйте позже.'
+    }
   } finally {
     spinnerStore.isLoading = false
+  }
+}
+
+const handleErrorResponse = (data) => {
+  if (data.error_code === 'validation_error' && data.errors && !Array.isArray(data.errors)) {
+    fieldErrors.value = data.errors
+  } else {
+    generalError.value = data.message ?? 'Неверные учетные данные'
   }
 }
 </script>
@@ -81,6 +122,12 @@ const login = async () => {
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 20px;
+}
+
+.general-error {
+  font-family: 'Inter', sans-serif;
+  color: var(--color-error);
+  margin-bottom: 16px;
 }
 
 .form-check {
