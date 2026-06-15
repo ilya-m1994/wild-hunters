@@ -38,7 +38,3 @@ const openRegister = () => {
   isModalOpened.value = true
 }
 </script>
-
-<style>
-
-</style>

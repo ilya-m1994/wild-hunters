@@ -5,6 +5,7 @@
         :model-value="weapon.licenseNumber"
         type="text"
         placeholder="000000"
+        :error-message="userStore.weaponErrors?.hunter_license_number?.[0]"
         @update:modelValue="val => userStore.updateWeapon(index, { hunter_license_number: val })"
     />
     <div>
@@ -15,6 +16,7 @@
               :model-value="userStore.hunterBilletNumber"
               type="text"
               placeholder="Номер билета"
+              :error-message="userStore.weaponErrors?.hunter_billet_number?.[0]"
               @update:modelValue="val => userStore.updateWeapon(index, { hunter_billet_number: val })"
           />
         </div>
@@ -24,6 +26,7 @@
               :model-value="weapon.licenseDate"
               type="text"
               placeholder="00.00.0000"
+              :error-message="userStore.weaponErrors?.hunter_license_date?.[0]"
               @update:modelValue="val => userStore.updateWeapon(index, { hunter_license_date: val })"
           />
         </div>
@@ -43,6 +46,12 @@
             {{ item.title }}
           </option>
         </select>
+        <div
+            v-if="userStore.weaponErrors?.weapon_type_id"
+            class="input-error"
+        >
+          {{ userStore.weaponErrors.weapon_type_id[0] }}
+        </div>
       </div>
       <div class="form-item-wrapper">
         <span class="form-label">Калибр</span>
@@ -69,32 +78,10 @@
       Сохранить
     </UiButton>
   </div>
-  <Modal v-model="userStore.weaponErrorModal">
-    <div>
-      <h3>Ошибки сохранения</h3>
-
-      <ul v-if="userStore.weaponErrors">
-        <li
-            v-for="(msgs, field) in userStore.weaponErrors"
-            :key="field"
-        >
-          <strong>{{ field }}:</strong>
-          <span v-for="msg in msgs" :key="msg">
-          {{ msg }}
-        </span>
-        </li>
-      </ul>
-
-      <UiButton class="btn" @click.prevent="userStore.weaponErrorModal = false">
-        Закрыть
-      </UiButton>
-    </div>
-  </Modal>
 </template>
 
 <script setup>
 import UiInput from '~/components/ui/UiInput.vue'
-import Modal from '~/components/ui/Modal.vue'
 import { useUserStore } from '~/store/user.js'
 
 const userStore = useUserStore()

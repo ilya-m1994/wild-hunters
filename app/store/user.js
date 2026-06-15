@@ -13,7 +13,6 @@ export const useUserStore = defineStore('user', () => {
     const availableWeapons = ref(null)
     const availableCalibers = ref(null)
     const weaponErrors = ref(null)
-    const weaponErrorModal = ref(false)
 
     const role = computed(() => {return profile.value?.role ?? 'Охотник'})
     const fullName = computed(() => {return profile.value?.name ?? 'Имя пользователя'})
@@ -165,7 +164,6 @@ export const useUserStore = defineStore('user', () => {
 
             if (data?.error_code === 'validation_error') {
                 weaponErrors.value = data.errors
-                weaponErrorModal.value = true
             } else {
                 error.value = error
             }
@@ -193,7 +191,6 @@ export const useUserStore = defineStore('user', () => {
         availableCalibers,
         error,
         weaponErrors,
-        weaponErrorModal,
         fetchProfile,
         clear,
         fetchWeapons,
