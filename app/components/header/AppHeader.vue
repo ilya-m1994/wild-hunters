@@ -3,17 +3,20 @@
     <div class="header-wrapper">
       <div class="header-menu">
         <div class="header-links">
-          <NuxtLink to="/members" class="user-name">
+          <NuxtLink to="/members" class="nav-link">
             Для охотников
           </NuxtLink>
-          <NuxtLink to="/cooperation" class="user-name">
+          <NuxtLink to="/cooperation" class="nav-link">
             Для охотхозяйств
           </NuxtLink>
         </div>
-        <BurgerMenu />
+        <BurgerMenu
+            :opened="isMobileMenuOpen"
+            @toggle="toggleMobileMenu"
+        />
       </div>
 
-      <img src="~/assets/img/logo.svg" alt="logotype">
+      <img class="header-img" src="~/assets/img/logo.svg" alt="logotype">
 
       <template v-if="authStore.isLoggedIn">
         <div class="logged-wrapper">
@@ -42,16 +45,30 @@
         </div>
       </template>
     </div>
-
+    <MobileMenu
+        :opened="isMobileMenuOpen"
+        @close="closeMobileMenu"
+    />
   </header>
 </template>
 
 <script setup>
 import BurgerMenu from '~/components/header/BurgerMenu.vue'
 import { useAuthStore } from '~/store/auth'
+import MobileMenu from '~/components/header/MobileMenu.vue'
 
 const authStore = useAuthStore()
 const emit = defineEmits(['login', 'register'])
+
+const isMobileMenuOpen = ref(false)
+
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value
+}
+
+const closeMobileMenu = () => {
+  isMobileMenuOpen.value = false
+}
 </script>
 
 <style scoped>
@@ -60,7 +77,7 @@ const emit = defineEmits(['login', 'register'])
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 1000;
 }
 .header-wrapper {
   display: grid;
@@ -72,6 +89,10 @@ const emit = defineEmits(['login', 'register'])
   border-bottom-left-radius: 12px;
   background: var(--color-white);
   padding: 20px 15px;
+}
+.header-img {
+  max-width: 72px;
+  margin-right: 8px;
 }
 .header-links {
   display: none;
@@ -93,10 +114,32 @@ const emit = defineEmits(['login', 'register'])
   background: var(--color-accent);
 }
 .user-name {
-  color: var(--color-accent);
+  color: var(--color-dark);
   font-weight: 600;
   margin-right: 8px;
   align-self: center;
+}
+.nav-link:not(:last-child) {
+  margin-right: 16px;
+}
+.nav-link {
+  position: relative;
+  display: inline-block;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-dark);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.nav-link:hover::after {
+  transform: scaleX(1);
 }
 .logged-wrapper {
   display: flex;
@@ -115,6 +158,9 @@ const emit = defineEmits(['login', 'register'])
     display: block;
     margin-right: 8px;
   }
+  .header-img {
+    max-width: 86px;
+  }
 }
 
 @media (min-width: 1440px) {
@@ -125,6 +171,9 @@ const emit = defineEmits(['login', 'register'])
   .registration-button {
     display: block;
     margin-right: 24px;
+  }
+  .header-img {
+    max-width: 104px;
   }
 }
 </style>

@@ -24,7 +24,7 @@ import WhyUs from "~/components/main/WhyUs.vue";
 import Hero from "~/components/main/Hero.vue";
 
 useSeoMeta({
-  title: 'Главная',
+  title: 'Wild-Hunter.ru — Первая автоматизированная платформа для охотников в России',
   description: 'Главная страница',
 })
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="members-section">
     <div class="container">
       <h1 class="section-title">
         Для охотников
@@ -78,5 +78,7 @@ import JoinCommunity from "~/components/main/JoinCommunity.vue";
 </script>
 
 <style scoped>
-
+.members-section {
+  padding-top: 100px;
+}
 </style>

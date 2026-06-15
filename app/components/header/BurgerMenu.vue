@@ -1,40 +1,35 @@
 <template>
   <button
       class="menu-btn"
-      @click="isOpened = !isOpened"
+      @click="$emit('toggle')"
   >
-    <img src="~/assets/icons/burger.svg" alt="menu">
+    <img
+        v-if="opened"
+        src="~/assets/icons/close-icon.svg"
+        alt="close"
+    >
+    <img
+        v-else
+        src="~/assets/icons/burger.svg"
+        alt="menu"
+    >
   </button>
-
-  <div v-if="isOpened">
-    <div class="flex flex-col gap-4">
-
-      <NuxtLink
-          to="/"
-          @click="isOpened = false"
-      >
-        Главная
-      </NuxtLink>
-
-      <NuxtLink
-          to="/recreation-centers"
-          @click="isOpened = false"
-      >
-        Базы отдыха
-      </NuxtLink>
-
-    </div>
-  </div>
 </template>
 
 <script setup>
-const isOpened = ref(false)
+defineProps({
+  opened: Boolean
+})
+
+defineEmits(['toggle'])
 </script>
 
 <style scoped>
 .menu-btn {
   border: none;
-  background-color: transparent;
+  background: transparent;
+  z-index: 300;
+  position: relative;
 }
 
 @media (min-width: 768px) {

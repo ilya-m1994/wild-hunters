@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="cooperation-section">
     <div class="container">
       <h1 class="section-title">
         Для охотхозяйств
@@ -49,5 +49,7 @@ import JoinCommunity from "~/components/main/JoinCommunity.vue";
 </script>
 
 <style scoped>
-
+.cooperation-section {
+  padding-top: 100px;
+}
 </style>
