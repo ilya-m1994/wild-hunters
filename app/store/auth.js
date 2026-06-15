@@ -28,12 +28,12 @@ export const useAuthStore = defineStore('auth', () => {
     const logout = async () => {
         spinnerStore.isLoading = true
 
-        await $fetch(
-            'http://109.172.31.240/api/v1/logout',
-            {
-                method: 'POST'
-            }
-        )
+        // await $fetch(
+        //     'http://109.172.31.240/api/v1/logout',
+        //     {
+        //         method: 'POST'
+        //     }
+        // )
 
         token.value = null
         user.value  = null

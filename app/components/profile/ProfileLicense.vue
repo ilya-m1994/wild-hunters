@@ -34,6 +34,8 @@
       <div class="form-item-wrapper">
         <span class="form-label">Тип оружия</span>
         <select
+            v-if="userStore.availableWeapons"
+            :key="userStore.availableWeapons.length"
             :value="weapon.weaponTypeId"
             class="weapons-select"
             @change="e => userStore.updateWeapon(index, { weapon_type_id: Number(e.target.value) })"
@@ -63,7 +65,7 @@
           <option
               v-for="caliber in userStore.availableCalibers"
               :key="caliber.id"
-              :value="caliber.id"
+              :value="caliber.title"
           >
             {{ caliber.title }}
           </option>

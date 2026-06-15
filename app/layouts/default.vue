@@ -13,6 +13,7 @@
       <AuthModal
           v-model="isModalOpened"
           :is-login="isLogin"
+          @switch-mode="handleSwitchMode"
       />
     </template>
   </div>
@@ -36,5 +37,9 @@ const openLogin = () => {
 const openRegister = () => {
   isLogin.value = false
   isModalOpened.value = true
+}
+
+const handleSwitchMode = (mode) => {
+  isLogin.value = mode === 'login'
 }
 </script>

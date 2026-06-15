@@ -3,8 +3,15 @@
       :model-value="modelValue"
       @update:model-value="emit('update:modelValue', $event)"
   >
-   <LoginForm v-if="isLogin" @close="emit('update:modelValue', false)"/>
-   <RegistrationForm v-else />
+   <LoginForm
+       v-if="isLogin"
+       @close="emit('update:modelValue', false)"
+       @switch-mode="emit('switch-mode', $event)"
+   />
+   <RegistrationForm
+       v-else
+       @switch-mode="emit('switch-mode', $event)"
+   />
   </Modal>
 </template>
 
@@ -18,10 +25,5 @@ defineProps({
   isLogin: Boolean
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'switch-mode']);
 </script>
-
-<style scoped>
-
-
-</style>

@@ -20,7 +20,7 @@
       </UiButton>
       <div class="form-registration">
         <span>Уже есть аккаунт?</span>
-        <UiButton class="btn" variant="text">
+        <UiButton class="btn" variant="text" @click.prevent="emit('switch-mode', 'login')">
           Вход
         </UiButton>
       </div>
@@ -29,9 +29,11 @@
 </template>
 
 <script setup>
-import UiInput from "~/components/ui/UiInput.vue";
-import UiButton from "~/components/ui/UiButton.vue";
-import {ref} from "vue";
+import UiInput from '~/components/ui/UiInput.vue'
+import UiButton from '~/components/ui/UiButton.vue'
+import {ref} from 'vue'
+
+const emit = defineEmits(['switch-mode'])
 
 const firstName = ref('')
 const lastName = ref('')

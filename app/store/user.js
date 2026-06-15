@@ -13,6 +13,8 @@ export const useUserStore = defineStore('user', () => {
     const availableWeapons = ref(null)
     const availableCalibers = ref(null)
     const weaponErrors = ref(null)
+    const passwordError = ref(null)
+    const passwordErrors = ref(null)
 
     const role = computed(() => {return profile.value?.role ?? 'Охотник'})
     const fullName = computed(() => {return profile.value?.name ?? 'Имя пользователя'})
@@ -172,6 +174,47 @@ export const useUserStore = defineStore('user', () => {
         }
     }
 
+    const changePassword = async (payload) => {
+        spinnerStore.isLoading = true
+        passwordError.value = null
+        passwordErrors.value = null
+
+        try {
+            const response = await $fetch(
+                'http://109.172.31.240/api/v1/user/change-password',
+                {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        Authorization: `Bearer ${authStore.token}`,
+                    },
+                    body: payload
+                }
+            )
+
+            if (response?.success === false) {
+                passwordError.value = response.message
+                passwordErrors.value = response.errors ?? null
+                return { success: false }
+            }
+
+            return { success: true, message: response?.message }
+        } catch (e) {
+            const data = e?.data
+
+            if (data?.error_code === 'validation_error') {
+                passwordError.value = data.message
+                passwordErrors.value = data.errors
+            } else {
+                passwordError.value = data?.message ?? 'Не удалось изменить пароль'
+            }
+
+            return { success: false }
+        } finally {
+            spinnerStore.isLoading = false
+        }
+    }
+
     return {
         profile,
         role,
@@ -197,6 +240,9 @@ export const useUserStore = defineStore('user', () => {
         fetchCalibers,
         addWeapon,
         updateWeapon,
-        saveWeapon
+        saveWeapon,
+        passwordError,
+        passwordErrors,
+        changePassword
     }
 })

@@ -26,6 +26,10 @@ onMounted(() => {
     userStore.fetchCalibers()
   }
 })
+useSeoMeta({
+  title: 'Wild-Hunter.ru — Мой профиль',
+  description: 'Мой профиль',
+})
 </script>
 
 <style scoped>
