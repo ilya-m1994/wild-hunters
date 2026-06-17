@@ -1,7 +1,7 @@
 <template>
   <div>
-    <AppSpinner v-if="!authStore.isReady" />
-    <template v-else>
+    <AppSpinner/>
+    <template>
       <AppHeader
           @login="openLogin"
           @register="openRegister"

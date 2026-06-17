@@ -16,7 +16,7 @@ import { onMounted } from 'vue'
 import { useUserStore } from '~/store/user'
 
 const userStore = useUserStore()
-definePageMeta({ layout: 'profile' })
+definePageMeta({ layout: 'profile' }, { requiresAuth: true })
 const activeTab = ref("profile");
 
 onMounted(() => {

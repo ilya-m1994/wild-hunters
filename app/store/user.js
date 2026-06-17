@@ -34,7 +34,7 @@ export const useUserStore = defineStore('user', () => {
     const fetchProfile = async () => {
         if (!authStore.user?.id) return
 
-        spinnerStore.isLoading = true
+        spinnerStore.startLoading()
         error.value = null
         try {
             const response = await $fetch(
@@ -71,7 +71,7 @@ export const useUserStore = defineStore('user', () => {
         } catch (e) {
             error.value = e
         } finally {
-            spinnerStore.isLoading = false
+            spinnerStore.stopLoading()
         }
     }
 
@@ -83,7 +83,7 @@ export const useUserStore = defineStore('user', () => {
     const fetchWeapons = async () => {
         if (!authStore.user?.id) return
 
-        spinnerStore.isLoading = true
+        spinnerStore.startLoading()
         error.value = null
         try {
             const response = await $fetch(
@@ -101,14 +101,14 @@ export const useUserStore = defineStore('user', () => {
         } catch (e) {
             error.value = e
         } finally {
-            spinnerStore.isLoading = false
+            spinnerStore.stopLoading()
         }
     }
 
     const fetchCalibers = async () => {
         if (!authStore.user?.id) return
 
-        spinnerStore.isLoading = true
+        spinnerStore.startLoading
         error.value = null
         try {
             const response = await $fetch(
@@ -126,7 +126,7 @@ export const useUserStore = defineStore('user', () => {
         } catch (e) {
             error.value = e
         } finally {
-            spinnerStore.isLoading = false
+            spinnerStore.stopLoading()
         }
     }
 
@@ -160,7 +160,7 @@ export const useUserStore = defineStore('user', () => {
             weapon_type_id: weapon.weapon_type_id,
             caliber: weapon.caliber,
         }
-        spinnerStore.isLoading = true
+        spinnerStore.startLoading()
         weaponErrors.value = null
         try {
             await $fetch(`${config.public.apiUrl}/user/weapons`, {
@@ -179,12 +179,12 @@ export const useUserStore = defineStore('user', () => {
                 error.value = error
             }
         } finally {
-            spinnerStore.isLoading = false
+            spinnerStore.stopLoading()
         }
     }
 
     const changePassword = async (payload) => {
-        spinnerStore.isLoading = true
+        spinnerStore.startLoading()
         passwordError.value = null
         passwordErrors.value = null
 
@@ -220,7 +220,7 @@ export const useUserStore = defineStore('user', () => {
 
             return { success: false }
         } finally {
-            spinnerStore.isLoading = false
+            spinnerStore.stopLoading()
         }
     }
 

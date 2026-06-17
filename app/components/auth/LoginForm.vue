@@ -51,8 +51,8 @@ const authStore = useAuthStore()
 const spinnerStore = useSpinnerStore()
 
 const emit = defineEmits(['reset-password', 'close', 'switch-mode'])
-const email = ref('');
-const password = ref('');
+const email = ref('denisburov1982@yandex.ru');
+const password = ref('DjM1w4Pe');
 
 const generalError = ref(null)
 const fieldErrors = ref(null)
@@ -66,7 +66,7 @@ const login = async () => {
   fieldErrors.value = null
 
   try {
-    spinnerStore.isLoading = true
+    spinnerStore.startLoading()
     const response = await $fetch(
         'http://109.172.31.240/api/v1/login',
         {
@@ -94,7 +94,7 @@ const login = async () => {
       generalError.value = 'Не удалось выполнить вход. Попробуйте позже.'
     }
   } finally {
-    spinnerStore.isLoading = false
+    spinnerStore.stopLoading()
   }
 }
 

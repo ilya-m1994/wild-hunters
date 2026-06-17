@@ -76,7 +76,7 @@ const subscribe = async () => {
   successMessage.value = null
 
   try {
-    spinnerStore.isLoading = true
+    spinnerStore.startLoading()
     const response = await $fetch(
         'http://109.172.31.240/api/v1/user/newsletter/subscribe',
         {
@@ -103,7 +103,7 @@ const subscribe = async () => {
       generalError.value = 'Не удалось оформить подписку. Попробуйте позже.'
     }
   } finally {
-    spinnerStore.isLoading = false
+    spinnerStore.stopLoading()
   }
 }
 

@@ -7,14 +7,11 @@ export const useAuthStore = defineStore('auth', () => {
     const token = ref(null)
 
     const isLoggedIn = computed(() => !!token.value)
-    const isReady = ref(false)
 
     // Вызывается один раз из плагина на клиенте
     const initFromStorage = () => {
         token.value = localStorage.getItem('auth_token') || null
         user.value  = JSON.parse(localStorage.getItem('auth_user') || 'null')
-
-        isReady.value = true
     }
 
     const setAuth = (responseData) => {
@@ -26,7 +23,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     const logout = async () => {
-        spinnerStore.isLoading = true
+        spinnerStore.startLoading()
 
         // await $fetch(
         //     'http://109.172.31.240/api/v1/logout',
@@ -41,8 +38,8 @@ export const useAuthStore = defineStore('auth', () => {
         localStorage.removeItem('auth_token')
         localStorage.removeItem('auth_user')
 
-        spinnerStore.isLoading = false
+        spinnerStore.stopLoading()
     }
 
-    return { user, token, isLoggedIn, isReady, initFromStorage, setAuth, logout }
+    return { user, token, isLoggedIn, initFromStorage, setAuth, logout }
 })

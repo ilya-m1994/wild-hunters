@@ -87,7 +87,7 @@ const login = async () => {
   fieldErrors.value = null
 
   try {
-    spinnerStore.isLoading = true
+    spinnerStore.startLoading()
     const response = await $fetch(
         'http://109.172.31.240/api/v1/register',
         {
@@ -120,7 +120,7 @@ const login = async () => {
       generalError.value = 'Не удалось выполнить регистрацию. Попробуйте позже.'
     }
   } finally {
-    spinnerStore.isLoading = false
+    spinnerStore.stopLoading()
   }
 }
 
