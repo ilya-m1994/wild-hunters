@@ -6,8 +6,11 @@
 </template>
 
 <script setup>
-import ProfileBookingsList from "~/components/profile/bookings/ProfileBookingsList.vue";
+import ProfileBookingsList from '~/components/profile/bookings/ProfileBookingsList.vue'
+import { useUserStore } from '~/store/user.js'
 
+const userStore = useUserStore()
+userStore.fetchBookings()
 const bookings = [
   {
     id: 1,

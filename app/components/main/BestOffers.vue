@@ -10,30 +10,36 @@
             :modules="modules"
             :navigation="{
             prevEl: '.slider-button-prev',
-            nextEl: '.slider-button-next',
+            nextEl: '.slider-button-next'
           }"
             :breakpoints="{
             375: {
               slidesPerView: 'auto',
-              spaceBetween: 5,
+              spaceBetween: 5
             },
             768: {
               slidesPerView: 'auto',
-              spaceBetween: 8,
+              spaceBetween: 8
             },
             1440: {
               slidesPerView: 'auto',
-              spaceBetween: 24,
+              spaceBetween: 24
             },
           }"
             class="slider"
         >
           <SwiperSlide
-              v-for="item in items"
+              v-for="item in offersStore.hotelsOffers"
               :key="item.id"
               class="slide"
           >
-            <div class="card">
+            <div class="card"
+                 :style="{
+                  backgroundImage: item.image_url
+                    ? `url(${item.image_url})`
+                    : `url(/_nuxt/assets/img/base.webp)`
+                  }"
+            >
               <button class="btn like-btn">
                 <img src="~/assets/icons/heart.svg" alt="like">
               </button>
@@ -46,8 +52,8 @@
               </div>
             </div>
             <div>
-              <div> {{ item.name }} </div>
-              <div> {{ item.region }} </div>
+              <div> {{ item.title }} </div>
+              <div> {{ item.slug }} </div>
             </div>
           </SwiperSlide>
         </Swiper>
@@ -67,46 +73,16 @@
 <script setup>
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
+import { useOffersStore } from '~/store/offers.js'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
 
-import baseImage from '~/assets/img/base.webp'
+const offersStore = useOffersStore()
+offersStore.fetchHotelsOffers()
 
 const modules = [Navigation]
 
-const items = [
-  {
-    id: 1,
-    name: 'База 1',
-    region: 'Московская область',
-    image: baseImage,
-  },
-  {
-    id: 2,
-    name: 'База 2',
-    region: 'Тверская область',
-    image: baseImage,
-  },
-  {
-    id: 3,
-    name: 'База 3',
-    region: 'Рязанская область',
-    image: baseImage,
-  },
-  {
-    id: 4,
-    name: 'База 4',
-    region: 'Калужская область',
-    image: baseImage,
-  },
-  {
-    id: 5,
-    name: 'База 5',
-    region: 'Тульская область',
-    image: baseImage,
-  },
-]
 </script>
 
 <style scoped>
@@ -126,7 +102,6 @@ const items = [
   height: 345px;
   padding: 20px;
   border-radius: var(--border-radius);
-  background-image: url("~/assets/img/base.webp");
   background-size: cover;
   background-position: center;
 }

@@ -71,6 +71,10 @@ import 'swiper/css/navigation'
 import location1 from '~/assets/img/location-1.webp'
 import location2 from '~/assets/img/location-2.webp'
 import location3 from '~/assets/img/location-3.webp'
+import { useOffersStore } from '~/store/offers.js'
+
+const offersStore = useOffersStore()
+offersStore.fetchLocationsOffers()
 
 const modules = [Navigation]
 

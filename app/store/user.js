@@ -22,6 +22,7 @@ export const useUserStore = defineStore('user', () => {
         avatarUrl: null,
         weapons: []
     })
+    const bookings = ref([])
 
     const weaponErrors = ref(null)
 
@@ -224,6 +225,31 @@ export const useUserStore = defineStore('user', () => {
         }
     }
 
+    const fetchBookings = async () => {
+        spinnerStore.startLoading()
+        error.value = null
+        try {
+            const response = await $fetch(
+                `${config.public.apiUrl}/users/${authStore.user.id}/bookings`,
+                {
+                    method: 'GET',
+                    headers: {
+                        Accept: 'application/json',
+                        Authorization: `Bearer ${authStore.token}`,
+                    },
+                }
+            )
+
+            bookings.value = response.data
+            console.log(bookings.value)
+        } catch (e) {
+            error.value = e
+        } finally {
+            spinnerStore.stopLoading()
+        }
+    }
+
+
     return {
         profile,
         form,
@@ -240,6 +266,7 @@ export const useUserStore = defineStore('user', () => {
         saveWeapon,
         passwordError,
         passwordErrors,
-        changePassword
+        changePassword,
+        fetchBookings
     }
 })

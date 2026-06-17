@@ -30,12 +30,12 @@
 
 <script setup>
 
-import FilterItem from "~/components/bases/FilterItem.vue";
-import FiltersSorting from "~/components/bases/FiltersSorting.vue";
-import FiltersPrice from "~/components/bases/FiltersPrice.vue";
-import FiltersRating from "~/components/bases/FiltersRating.vue";
-import FiltersServices from "~/components/bases/FiltersServices.vue";
-import FiltersEating from "~/components/bases/FiltersEating.vue";
+import FilterItem from '~/components/bases/FilterItem.vue'
+import FiltersSorting from '~/components/bases/FiltersSorting.vue'
+import FiltersPrice from '~/components/bases/FiltersPrice.vue'
+import FiltersRating from '~/components/bases/FiltersRating.vue'
+import FiltersServices from '~/components/bases/FiltersServices.vue'
+import FiltersEating from '~/components/bases/FiltersEating.vue'
 </script>
 
 <style scoped>
