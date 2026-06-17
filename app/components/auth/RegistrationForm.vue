@@ -98,7 +98,7 @@ const login = async () => {
             phone: phone.value,
             email: email.value,
             password: password.value,
-            role: 'baseadmin',
+            role: 'hunter',
             term: true
           }
         }

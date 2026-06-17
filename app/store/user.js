@@ -46,8 +46,7 @@ export const useUserStore = defineStore('user', () => {
         error.value = null
         try {
             const response = await $fetch(
-                `http://109.172.31.240/api/v1/user/${19}`,
-                // `http://109.172.31.240/api/v1/user/${authStore.user.id}`,
+                `http://109.172.31.240/api/v1/user/${authStore.user.id}`,
                 {
                     method: 'GET',
                     headers: {
