@@ -1,5 +1,5 @@
 <template>
-  <div style="background: var(--color-light)">
+  <div>
     <AppSpinner v-if="!authStore.isReady" />
     <template v-else>
       <AppHeader

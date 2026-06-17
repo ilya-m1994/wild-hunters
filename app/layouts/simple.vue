@@ -1,5 +1,5 @@
 <template>
-  <div style="background: var(--color-white)">
+  <div>
     <AppSpinner />
     <AppHeader
         @login="openLogin"

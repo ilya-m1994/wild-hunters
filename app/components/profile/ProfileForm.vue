@@ -3,50 +3,50 @@
     <h1 class="section-title profile-form-title">Настройки</h1>
     <div class="profile-id-wrapper">
       <span class="profile-id-title">Личная информация</span>
-      <span class="profile-id">ID: {{ userStore.userId }}</span>
+      <span class="profile-id">ID: {{ userStore.profile?.id }}</span>
     </div>
     <form class="profile-form">
       <div>
         <div class="form-item-wrapper">
           <span class="form-label">Ник</span>
-          <UiInput v-model="userStore.nickname" type="text" placeholder="Ник пользователя"/>
+          <UiInput v-model="userStore.form.nickname" type="text" placeholder="Ник пользователя"/>
         </div>
         <div class="form-item-wrapper">
           <span class="form-label">Email</span>
-          <UiInput v-model="userStore.email" type="text" placeholder="example@gmail.com"/>
+          <UiInput v-model="userStore.form.email" type="text" placeholder="example@gmail.com"/>
         </div>
         <div class="form-item--flex-wrapper">
           <div class="form-item-wrapper">
             <span class="form-label">Имя</span>
-            <UiInput v-model="userStore.firstName" type="text" placeholder="Введите имя"/>
+            <UiInput v-model="userStore.form.firstName" type="text" placeholder="Введите имя"/>
           </div>
           <div class="form-item-wrapper">
             <span class="form-label">Фамилия</span>
-            <UiInput v-model="userStore.lastName" type="text" placeholder="Фамилия"/>
+            <UiInput v-model="userStore.form.lastName" type="text" placeholder="Фамилия"/>
           </div>
         </div>
         <div class="form-item-wrapper">
           <span class="form-label">Номер телефона</span>
-          <UiInput v-model="userStore.phone" type="text" placeholder="+7 (999) 999-99-98"/>
+          <UiInput v-model="userStore.form.phone" type="text" placeholder="+7 (999) 999-99-98"/>
         </div>
         <div class="form-item-wrapper">
           <span class="form-label">Дата рождения</span>
-          <UiInput v-model="userStore.birthday" type="text" placeholder="00.00.0000"/>
+          <UiInput v-model="userStore.form.birthday" type="text" placeholder="00.00.0000"/>
         </div>
         <div class="form-item-wrapper">
           <span class="form-label">Обо мне</span>
-          <textarea class="profile-form-textarea" rows="6" cols="33"></textarea>
+          <textarea v-model="userStore.form.bio" class="profile-form-textarea" rows="6" cols="33"></textarea>
         </div>
         <div class="form-item-wrapper">
           <span class="form-label">Аватар</span>
           <UiInput type="file" placeholder="Файл"/>
-          <img class="profile-avatar" :src="userStore.avatarUrl" alt="profile-avatar">
+          <img class="profile-avatar" :src="userStore.form.avatarUrl" alt="profile-avatar">
         </div>
       </div>
       <div>
         <div class="form-item-wrapper">
           <span class="form-label">Номер охот.билета</span>
-          <UiInput v-model="userStore.hunterBilletNumber" type="text" placeholder="Введите номер охотнического билета"/>
+          <UiInput v-model="userStore.form.hunterBilletNumber" type="text" placeholder="Введите номер охотнического билета"/>
         </div>
         <ProfileLicense
             v-for="(weapon, index) in userStore.weapons"

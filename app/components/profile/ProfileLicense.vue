@@ -13,7 +13,7 @@
         <div class="form-item-wrapper">
           <span class="form-label">Номер</span>
           <UiInput
-              :model-value="userStore.hunterBilletNumber"
+              :model-value="userStore.form.hunterBilletNumber"
               type="text"
               placeholder="Номер билета"
               :error-message="userStore.weaponErrors?.hunter_billet_number?.[0]"

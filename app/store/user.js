@@ -1,43 +1,35 @@
 import { defineStore } from 'pinia'
 import { useAuthStore } from '~/store/auth'
 import { useSpinnerStore } from '~/store/spinner.js'
-import { computed } from 'vue'
 import defaultAvatar from '~/assets/icons/profile-avatar.svg'
+
 
 export const useUserStore = defineStore('user', () => {
     const authStore = useAuthStore()
     const spinnerStore = useSpinnerStore()
+    const config = useRuntimeConfig()
 
     const profile = ref(null)
+    const form = ref({
+        nickname: '',
+        email: '',
+        firstName: '',
+        lastName: '',
+        phone: '',
+        birthday: '',
+        hunterBilletNumber: '',
+        bio: '',
+        avatarUrl: null
+    })
+
+    const weapons = ref([])
+    const weaponErrors = ref(null)
+
     const error = ref(null)
     const availableWeapons = ref(null)
     const availableCalibers = ref(null)
-    const weaponErrors = ref(null)
     const passwordError = ref(null)
     const passwordErrors = ref(null)
-
-    const role = computed(() => {return profile.value?.role ?? 'Охотник'})
-    const fullName = computed(() => {return profile.value?.name ?? 'Имя пользователя'})
-    const firstName = computed(() => {return profile.value?.first_name ?? 'Имя'})
-    const lastName = computed(() => {return profile.value?.last_name ?? 'Фамилия'})
-    const createdAt = computed(() => {return profile.value?.created_at ?? 'Feb 2026'})
-    const userId = computed(() => {return profile.value?.id ?? '0000'})
-    const nickname = computed(() => {return profile.value?.nik ?? 'Nickname'})
-    const email = computed(() => {return profile.value?.email ?? 'email'})
-    const phone = computed(() => {return profile.value?.phone ?? ''})
-    const birthday = computed(() => {return profile.value?.birthday ?? ''})
-    const avatarUrl = computed(() => {return profile.value?.avatar_url ?? defaultAvatar})
-    const hunterBilletNumber = computed(() => {return profile.value?.hunter_billet_number ?? ''})
-    const weapons = computed(() =>
-        (profile.value?.weapons ?? []).map(weapon => ({
-            billetNumber: weapon.hunter_billet_number ?? '',
-            licenseNumber: weapon.hunter_license_number ?? '',
-            licenseDate: weapon.hunter_license_date ?? '',
-            weaponType: weapon.weapon_type ?? '',
-            weaponTypeId: weapon.weapon_type_id ?? null,
-            caliber: weapon.caliber ?? ''
-        }))
-    )
 
     const fetchProfile = async () => {
         if (!authStore.user?.id) return
@@ -46,7 +38,7 @@ export const useUserStore = defineStore('user', () => {
         error.value = null
         try {
             const response = await $fetch(
-                `http://109.172.31.240/api/v1/user/${authStore.user.id}`,
+                `${config.public.apiUrl}/user/${authStore.user.id}`,
                 {
                     method: 'GET',
                     headers: {
@@ -57,6 +49,24 @@ export const useUserStore = defineStore('user', () => {
             )
 
             profile.value = response.data
+            form.value = {
+                nickname: response.data.nik,
+                email: response.data.email,
+                firstName: response.data.first_name,
+                lastName: response.data.last_name,
+                phone: response.data.phone,
+                birthday: response.data.birthday,
+                hunterBilletNumber: response.data.hunter_billet_number,
+                bio: response.data.bio,
+                avatarUrl: response.data.avatar_url ?? defaultAvatar,
+            }
+            weapons.value = response.data.weapons.map(weapon => ({
+                licenseNumber: weapon.hunter_license_number ?? '',
+                licenseDate: weapon.hunter_license_date ?? '',
+                weaponType: weapon.weapon_type ?? '',
+                weaponTypeId: weapon.weapon_type_id ?? null,
+                caliber: weapon.caliber ?? ''
+            }))
         } catch (e) {
             error.value = e
         } finally {
@@ -122,8 +132,7 @@ export const useUserStore = defineStore('user', () => {
     const addWeapon = () => {
         if (!profile.value) return
 
-        profile.value.weapons.push({
-            hunter_billet_number: '',
+        weapons.value.push({
             hunter_license_number: '',
             hunter_license_date: '',
             weapon_type_id: null,
@@ -144,7 +153,6 @@ export const useUserStore = defineStore('user', () => {
         const weapon = profile.value.weapons[index]
 
         const payload = {
-            hunter_billet_number: hunterBilletNumber.value,
             hunter_license_number: weapon.hunter_license_number,
             hunter_license_date: '2026-01-01',
             weapon_type_id: weapon.weapon_type_id,
@@ -216,18 +224,7 @@ export const useUserStore = defineStore('user', () => {
 
     return {
         profile,
-        role,
-        fullName,
-        firstName,
-        lastName,
-        createdAt,
-        userId,
-        nickname,
-        email,
-        phone,
-        birthday,
-        avatarUrl,
-        hunterBilletNumber,
+        form,
         weapons,
         availableWeapons,
         availableCalibers,

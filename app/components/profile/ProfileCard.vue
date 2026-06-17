@@ -3,9 +3,9 @@
     <div class="profile-card-title">
       <img class="profile-photo" src="~/assets/icons/profile-photo.svg" alt="profile-photo" />
       <div class="profile-title-wrapper">
-        <span class="profile-role">{{ userStore.role }}</span>
-        <span class="profile-name">{{ userStore.fullName }}</span>
-        <span class="profile-since">Участник с: {{ userStore.createdAt }}</span>
+        <span class="profile-role">{{ userStore.profile?.role }}</span>
+        <span class="profile-name">{{ userStore.profile?.name }}</span>
+        <span class="profile-since">Участник с: {{ userStore.profile?.created_at }}</span>
       </div>
     </div>
     <div>

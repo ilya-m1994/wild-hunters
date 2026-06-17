@@ -30,7 +30,7 @@ span {
 body {
     font-family: 'Inter', sans-serif;
     color: var(--color-dark);
-    background: var(--color-background);
+    background: var(--color-light);
     letter-spacing: -0.05em;
 }
 

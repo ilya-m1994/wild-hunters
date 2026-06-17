@@ -1,5 +1,5 @@
 <template>
-  <div style="background: var(--color-white)">
+  <div>
     <AppSpinner />
     <main>
       <slot />
@@ -9,7 +9,3 @@
 <script setup>
 import AppSpinner from '~/components/ui/AppSpinner.vue'
 </script>
-
-<style>
-
-</style>
