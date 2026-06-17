@@ -3,6 +3,7 @@ import { useSpinnerStore } from '~/store/spinner.js'
 
 export const useAuthStore = defineStore('auth', () => {
     const spinnerStore = useSpinnerStore()
+    const config = useRuntimeConfig()
     const user  = ref(null)
     const token = ref(null)
 
@@ -25,12 +26,16 @@ export const useAuthStore = defineStore('auth', () => {
     const logout = async () => {
         spinnerStore.startLoading()
 
-        // await $fetch(
-        //     'http://109.172.31.240/api/v1/logout',
-        //     {
-        //         method: 'POST'
-        //     }
-        // )
+        await $fetch(
+            `${config.public.apiUrl}/logout`,
+            {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${token.value}`,
+                },
+            }
+        )
 
         token.value = null
         user.value  = null
