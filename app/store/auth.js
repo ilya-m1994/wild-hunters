@@ -46,5 +46,50 @@ export const useAuthStore = defineStore('auth', () => {
         spinnerStore.stopLoading()
     }
 
-    return { user, token, isLoggedIn, initFromStorage, setAuth, logout }
+    const sendResetCode = async (email) => {
+        spinnerStore.startLoading()
+
+        try {
+            return await $fetch(
+                `${config.public.apiUrl}/password/email`,
+                {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                    },
+                    body: {
+                        email
+                    }
+                }
+            )
+        } finally {
+            spinnerStore.stopLoading()
+        }
+    }
+
+    const sendNewPassword = async (email, code, password, passwordConfirmation) => {
+        spinnerStore.startLoading()
+
+        try {
+            return await $fetch(
+                `${config.public.apiUrl}/password/reset`,
+                {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                    },
+                    body: {
+                        email,
+                        code,
+                        password,
+                        password_confirmation: passwordConfirmation
+                    }
+                }
+            )
+        } finally {
+            spinnerStore.stopLoading()
+        }
+    }
+
+    return { user, token, isLoggedIn, initFromStorage, setAuth, logout, sendResetCode, sendNewPassword }
 })

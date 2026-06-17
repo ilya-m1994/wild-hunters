@@ -93,8 +93,8 @@ const login = async () => {
         {
           method: 'POST',
           body: {
-            firstName: firstName.value,
-            lastName: lastName.value,
+            first_name: firstName.value,
+            last_name: lastName.value,
             phone: phone.value,
             email: email.value,
             password: password.value,
@@ -106,8 +106,8 @@ const login = async () => {
 
     if (response.success) {
       authStore.setAuth(response)
-      await userStore.fetchProfile()
       emit('close')
+      await userStore.fetchProfile()
     } else {
       handleErrorResponse(response)
     }

@@ -11,7 +11,7 @@
     <AppFooter />
     <AuthModal
         v-model="isModalOpened"
-        :is-login="isLogin"
+        :mode="authMode"
         @switch-mode="handleSwitchMode"
     />
   </div>
@@ -23,19 +23,20 @@ import AuthModal from '~/components/auth/AuthModal.vue'
 import AppSpinner from '~/components/ui/AppSpinner.vue'
 
 const isModalOpened = ref(false)
-const isLogin = ref(true)
+const authMode = ref('login')
+// const isLogin = ref(true)
 
 const openLogin = () => {
-  isLogin.value = true
+  authMode.value = 'login'
   isModalOpened.value = true
 }
 
 const openRegister = () => {
-  isLogin.value = false
+  authMode.value = 'register'
   isModalOpened.value = true
 }
 
 const handleSwitchMode = (mode) => {
-  isLogin.value = mode === 'login'
+  authMode.value = mode
 }
 </script>

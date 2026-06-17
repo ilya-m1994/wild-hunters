@@ -20,7 +20,7 @@
           <input type="checkbox" checked />
           <label>Запомнить меня</label>
         </div>
-        <UiButton class="btn" variant="text">
+        <UiButton class="btn" variant="text" @click.prevent="emit('switch-mode', 'forgot-password')">
           Забыли пароль?
         </UiButton>
       </div>
@@ -50,7 +50,7 @@ const userStore = useUserStore()
 const authStore = useAuthStore()
 const spinnerStore = useSpinnerStore()
 
-const emit = defineEmits(['reset-password', 'close', 'switch-mode'])
+const emit = defineEmits(['close', 'switch-mode'])
 const email = ref('denisburov1982@yandex.ru');
 const password = ref('DjM1w4Pe');
 
