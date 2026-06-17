@@ -49,7 +49,7 @@
           <UiInput v-model="userStore.form.hunterBilletNumber" type="text" placeholder="Введите номер охотнического билета"/>
         </div>
         <ProfileLicense
-            v-for="(weapon, index) in userStore.weapons"
+            v-for="(weapon, index) in userStore.form.weapons"
             :key="index"
             :weapon="weapon"
             :index="index"

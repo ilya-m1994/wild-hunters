@@ -19,10 +19,10 @@ export const useUserStore = defineStore('user', () => {
         birthday: '',
         hunterBilletNumber: '',
         bio: '',
-        avatarUrl: null
+        avatarUrl: null,
+        weapons: []
     })
 
-    const weapons = ref([])
     const weaponErrors = ref(null)
 
     const error = ref(null)
@@ -38,7 +38,8 @@ export const useUserStore = defineStore('user', () => {
         error.value = null
         try {
             const response = await $fetch(
-                `${config.public.apiUrl}/user/${authStore.user.id}`,
+                `${config.public.apiUrl}/user/${19}`,
+                // `${config.public.apiUrl}/user/${authStore.user.id}`,
                 {
                     method: 'GET',
                     headers: {
@@ -59,14 +60,14 @@ export const useUserStore = defineStore('user', () => {
                 hunterBilletNumber: response.data.hunter_billet_number,
                 bio: response.data.bio,
                 avatarUrl: response.data.avatar_url ?? defaultAvatar,
+                weapons: response.data.weapons.map(weapon => ({
+                    licenseNumber: weapon.hunter_license_number ?? '',
+                    licenseDate: weapon.hunter_license_date ?? '',
+                    weaponType: weapon.weapon_type ?? '',
+                    weaponTypeId: weapon.weapon_type_id ?? null,
+                    caliber: weapon.caliber ?? ''
+                }))
             }
-            weapons.value = response.data.weapons.map(weapon => ({
-                licenseNumber: weapon.hunter_license_number ?? '',
-                licenseDate: weapon.hunter_license_date ?? '',
-                weaponType: weapon.weapon_type ?? '',
-                weaponTypeId: weapon.weapon_type_id ?? null,
-                caliber: weapon.caliber ?? ''
-            }))
         } catch (e) {
             error.value = e
         } finally {
@@ -86,7 +87,7 @@ export const useUserStore = defineStore('user', () => {
         error.value = null
         try {
             const response = await $fetch(
-                `http://109.172.31.240/api/v1/weapons`,
+                `${config.public.apiUrl}/weapons`,
                 {
                     method: 'GET',
                     headers: {
@@ -111,7 +112,7 @@ export const useUserStore = defineStore('user', () => {
         error.value = null
         try {
             const response = await $fetch(
-                `http://109.172.31.240/api/v1/calibers`,
+                `${config.public.apiUrl}/calibers`,
                 {
                     method: 'GET',
                     headers: {
@@ -132,7 +133,7 @@ export const useUserStore = defineStore('user', () => {
     const addWeapon = () => {
         if (!profile.value) return
 
-        weapons.value.push({
+        form.value.weapons.push({
             hunter_license_number: '',
             hunter_license_date: '',
             weapon_type_id: null,
@@ -141,16 +142,17 @@ export const useUserStore = defineStore('user', () => {
     }
 
     const updateWeapon = (index, payload) => {
-        if (!profile.value?.weapons?.[index]) return
+        const weapon = form.value.weapons[index]
+        if (!weapon) return
 
-        profile.value.weapons[index] = {
-            ...profile.value.weapons[index],
+        form.value.weapons[index] = {
+            ...weapon,
             ...payload
         }
     }
 
     const saveWeapon = async (index) => {
-        const weapon = profile.value.weapons[index]
+        const weapon = form.value.weapons[index]
 
         const payload = {
             hunter_license_number: weapon.hunter_license_number,
@@ -161,7 +163,7 @@ export const useUserStore = defineStore('user', () => {
         spinnerStore.isLoading = true
         weaponErrors.value = null
         try {
-            await $fetch('http://109.172.31.240/api/v1/user/weapons', {
+            await $fetch(`${config.public.apiUrl}/user/weapons`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${authStore.token}`
@@ -188,7 +190,7 @@ export const useUserStore = defineStore('user', () => {
 
         try {
             const response = await $fetch(
-                'http://109.172.31.240/api/v1/user/change-password',
+                `${config.public.apiUrl}/user/change-password`,
                 {
                     method: 'POST',
                     headers: {
@@ -225,7 +227,6 @@ export const useUserStore = defineStore('user', () => {
     return {
         profile,
         form,
-        weapons,
         availableWeapons,
         availableCalibers,
         error,
