@@ -36,16 +36,16 @@
                 <div class="avatar" />
                 <div class="info">
                   <div class="name">
-                    {{ item.name }}
+                    {{ item.author?.name }}
                   </div>
 
                   <div class="profession">
-                    {{ item.profession }}
+                    {{ item.bio }}
                   </div>
                 </div>
               </div>
               <div class="text">
-                {{ item.review }}
+                {{ item.rate_text }}
               </div>
             </div>
           </SwiperSlide>
@@ -61,38 +61,44 @@
 <script setup>
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-
+import { ref } from 'vue'
 import 'swiper/css'
 import 'swiper/css/navigation'
+import { useAuthStore } from '~/store/auth.js'
 
 const modules = [Navigation]
+const authStore = useAuthStore()
+const config = useRuntimeConfig()
 
-const reviews = [
-  {
-    id: 1,
-    name: 'Иван Иванов',
-    profession: 'Программист',
-    review: 'Брали путёвки на весенний сезон — утку и вальдшнепа. Очень порадовало соотношение цены и качества, сопоставимо с соседними хозяйствами, но сервис здесь заметно выше.',
-  },
-  {
-    id: 2,
-    name: 'Александр Петров',
-    profession: 'Инженер',
-    review: 'Все организовано удобно. Быстро нашли нужную базу и оформили бронирование.',
-  },
-  {
-    id: 3,
-    name: 'Дмитрий Смирнов',
-    profession: 'Предприниматель',
-    review: 'Понравилась прозрачность расходов и поддержка со стороны организаторов.',
-  },
-  {
-    id: 4,
-    name: 'Сергей Кузнецов',
-    profession: 'Дизайнер',
-    review: 'Сервис удобный, хорошие предложения по регионам и условиям.',
-  },
-]
+const reviews = ref([])
+
+const fetchReviews = async () => {
+  try {
+    const response = await $fetch(
+        `${config.public.apiUrl}/services/reviews`,
+        {
+          method: 'POST',
+          body: {
+            type: 'hotel',
+            order_by: 'created_at',
+            order_direction: 'desc',
+            limit: 3
+          },
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${authStore.token}`,
+          },
+        }
+    )
+
+    reviews.value = response.data
+  } catch (e) {
+      console.log(e)
+  } finally {
+  }
+}
+
+fetchReviews()
 </script>
 
 <style scoped>
