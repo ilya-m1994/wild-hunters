@@ -20,7 +20,7 @@ export const useOffersStore = defineStore('offers', () => {
                     method: 'POST',
                     body: {
                         order_by: "created_at",
-                        order_direction: "desc",
+                        order_direction: "asc",
                         limit: 3
                     },
                     headers: {
@@ -48,7 +48,7 @@ export const useOffersStore = defineStore('offers', () => {
                     method: 'POST',
                     body: {
                         order_by: "created_at",
-                        order_direction: "desc",
+                        order_direction: "asc",
                         limit: 3
                     },
                     headers: {

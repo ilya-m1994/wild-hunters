@@ -10,6 +10,7 @@ export const useUserStore = defineStore('user', () => {
     const config = useRuntimeConfig()
 
     const profile = ref(null)
+    const profileErrors = ref(null)
     const form = ref({
         nickname: '',
         email: '',
@@ -71,6 +72,50 @@ export const useUserStore = defineStore('user', () => {
             }
         } catch (e) {
             error.value = e
+        } finally {
+            spinnerStore.stopLoading()
+        }
+    }
+
+    const updateProfile = async () => {
+        spinnerStore.startLoading()
+        profileErrors.value = null
+        error.value = null
+
+        try {
+            const payload = {
+                nik: form.value.nickname,
+                email: form.value.email,
+                first_name: form.value.firstName,
+                last_name: form.value.lastName,
+                phone: form.value.phone,
+                birthday: form.value.birthday,
+                hunter_billet_number: form.value.hunterBilletNumber,
+                bio: form.value.bio,
+                // city и address — если появятся в форме
+                // avatar — отдельно, через FormData (см. примечание ниже)
+            }
+
+            const response = await $fetch(`${config.public.apiUrl}/user`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${authStore.token}`,
+                },
+                body: payload,
+            })
+
+            if (response?.data && Object.keys(response.data).length) {
+                profile.value = response.data
+            }
+        } catch (e) {
+            const data = e?.data
+
+            if (data?.error_code === 'validation_error') {
+                profileErrors.value = data.errors
+            } else {
+                error.value = e
+            }
         } finally {
             spinnerStore.stopLoading()
         }
@@ -258,6 +303,7 @@ export const useUserStore = defineStore('user', () => {
         error,
         weaponErrors,
         fetchProfile,
+        updateProfile,
         clear,
         fetchWeapons,
         fetchCalibers,

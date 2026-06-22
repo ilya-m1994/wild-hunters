@@ -65,7 +65,16 @@
         </div>
       </div>
     </form>
-    <UiButton class="btn profile-submit-btn">Сохранить изменения</UiButton>
+    <UiButton class="btn profile-submit-btn" @click.prevent="userStore.updateProfile">Сохранить изменения</UiButton>
+
+    <ul v-if="userStore.profileErrors" class="profile-errors">
+      <li
+          v-for="(messages, field) in userStore.profileErrors"
+          :key="field"
+      >
+        <span v-for="msg in messages" :key="msg">{{ msg }}</span>
+      </li>
+    </ul>
   </section>
 </template>
 

@@ -12,7 +12,7 @@
             :navigation="{
             prevEl: '.slider-button-prev',
             nextEl: '.slider-button-next',
-          }"
+            }"
             :breakpoints="{
             375: {
               spaceBetween: 10,
