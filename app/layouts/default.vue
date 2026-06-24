@@ -2,17 +2,17 @@
   <div>
     <AppSpinner />
     <AppHeader
-        @login="openLogin"
-        @register="openRegister"
+        @login="uiStore.openAuthModal('login')"
+        @register="uiStore.openAuthModal('register')"
     />
     <main>
       <slot />
     </main>
     <AppFooter />
     <AuthModal
-        v-model="isModalOpened"
-        :mode="authMode"
-        @switch-mode="handleSwitchMode"
+        v-model="uiStore.isAuthModalOpen"
+        :mode="uiStore.authModalMode"
+        @switch-mode="uiStore.authModalMode = $event"
     />
   </div>
 </template>
@@ -21,22 +21,7 @@ import AppHeader from '~/components/header/AppHeader.vue'
 import AppFooter from '~/components/footer/AppFooter.vue'
 import AuthModal from '~/components/auth/AuthModal.vue'
 import AppSpinner from '~/components/ui/AppSpinner.vue'
+import { useUiStore } from '~/store/ui'
 
-const isModalOpened = ref(false)
-const authMode = ref('login')
-// const isLogin = ref(true)
-
-const openLogin = () => {
-  authMode.value = 'login'
-  isModalOpened.value = true
-}
-
-const openRegister = () => {
-  authMode.value = 'register'
-  isModalOpened.value = true
-}
-
-const handleSwitchMode = (mode) => {
-  authMode.value = mode
-}
+const uiStore = useUiStore()
 </script>

@@ -33,7 +33,14 @@
           >
             <div class="card">
               <div class="header">
-                <div class="avatar" />
+                <div class="avatar">
+                  <img
+                      v-if="item.author?.avatar_url"
+                      :src="item.author.avatar_url"
+                      :alt="item.author.name"
+                      class="avatar-image"
+                  >
+                </div>
                 <div class="info">
                   <div class="name">
                     {{ item.author?.name }}
@@ -93,7 +100,7 @@ const fetchReviews = async () => {
 
     reviews.value = response.data
   } catch (e) {
-      console.log(e)
+    console.log(e)
   } finally {
   }
 }
@@ -132,6 +139,12 @@ fetchReviews()
   flex-shrink: 0;
   border-radius: 50%;
   background: var(--color-grey);
+  overflow: hidden;
+}
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .info {
   margin-left: 12px;

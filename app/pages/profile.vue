@@ -4,6 +4,7 @@
       <ProfileCard :active-tab="activeTab" @change-tab="activeTab = $event" />
       <ProfileForm v-if="activeTab === 'profile'" />
       <ProfileBookings v-if="activeTab === 'bookings'" />
+      <ProfileFavorites v-if="activeTab === 'favorites'" />
       <ProfileChangePassword v-if="activeTab === 'password'" />
     </div>
   </section>
@@ -14,6 +15,7 @@ import ProfileCard from "~/components/profile/ProfileCard.vue";
 import ProfileChangePassword from "~/components/profile/ProfileChangePassword.vue";
 import { onMounted } from 'vue'
 import { useUserStore } from '~/store/user'
+import ProfileFavorites from '~/components/profile/ProfileFavorites.vue'
 
 const userStore = useUserStore()
 definePageMeta({ layout: 'profile' }, { requiresAuth: true })

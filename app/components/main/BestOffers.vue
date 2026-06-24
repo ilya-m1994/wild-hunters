@@ -40,9 +40,7 @@
                     : `url(/_nuxt/assets/img/base.webp)`
                   }"
             >
-              <button class="btn like-btn">
-                <img src="~/assets/icons/heart.svg" alt="like">
-              </button>
+              <LikeButton :service-id="item.id" type="hotel" />
               <div class="meta">
                 <div class="reviews">32 отзыва</div>
                 <div class="rating">
@@ -77,10 +75,10 @@ import { useOffersStore } from '~/store/offers.js'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
+import LikeButton from '~/components/main/LikeButton.vue'
 
 const offersStore = useOffersStore()
 offersStore.fetchHotelsOffers()
-
 const modules = [Navigation]
 
 </script>

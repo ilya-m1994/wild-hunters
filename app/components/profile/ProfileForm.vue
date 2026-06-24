@@ -80,7 +80,7 @@
 
 <script setup>
 import UiInput from '~/components/ui/UiInput.vue'
-import { useUserStore } from '~/store/user.js'
+import { useUserStore } from '~/store/user'
 
 const userStore = useUserStore()
 </script>

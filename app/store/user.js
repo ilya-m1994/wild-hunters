@@ -50,7 +50,6 @@ export const useUserStore = defineStore('user', () => {
                     },
                 }
             )
-
             profile.value = response.data
             form.value = {
                 nickname: response.data.nik,
@@ -62,7 +61,7 @@ export const useUserStore = defineStore('user', () => {
                 hunterBilletNumber: response.data.hunter_billet_number,
                 bio: response.data.bio,
                 avatarUrl: response.data.avatar_url ?? defaultAvatar,
-                weapons: response.data.weapons.map(weapon => ({
+                weapons: (response.data.weapons ?? []).map(weapon => ({
                     licenseNumber: weapon.hunter_license_number ?? '',
                     licenseDate: weapon.hunter_license_date ?? '',
                     weaponType: weapon.weapon_type ?? '',
@@ -293,7 +292,6 @@ export const useUserStore = defineStore('user', () => {
             spinnerStore.stopLoading()
         }
     }
-
 
     return {
         profile,
