@@ -2,7 +2,7 @@ export default defineNuxtConfig({
     devtools: {
         enabled: process.env.NODE_ENV === 'development'
     },
-    ssr: true,
+    ssr: false,
     nitro: {
         compressPublicAssets: true
     },
